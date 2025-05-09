@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using PlusStokTakip.BusinessLayer.Concrete;
 using PlusStokTakip.DataAccessLayer.EntityFramework;
+using PlusStokTakip.PresentationLayer.User.Modules.Ayarlar;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ namespace PlusStokTakip.PresentationLayer
         private readonly UsersManager _usersManager = new UsersManager(new EfUsersDal());
         FrmAdminMain frmAdminMain = new FrmAdminMain();
         FrmUserMain frmUserMain = new FrmUserMain();
+        FrmUser frmUser = new FrmUser();
         public FrmLogin()
         {
             InitializeComponent();
@@ -44,6 +46,10 @@ namespace PlusStokTakip.PresentationLayer
 
             if (user != null)
             {
+                // Kullanıcının ID'sini sakla
+                int userId = user.UserID; // Kullanıcı ID'sini buradan alıyoruz
+                string userName = user.UserName; // Kullanıcı adını buradan alıyoruz
+
                 switch (user.Role)
                 {
                     case "Admin":
@@ -51,7 +57,9 @@ namespace PlusStokTakip.PresentationLayer
                         frmAdminMain.Show();
                         break;
                     case "Kullanıcı":
-                        // Kullanıcı ekranını aç
+                        // Kullanıcı ekranını aç ve ID'yi geç
+                        frmUserMain._userName = userName; // Kullanıcı ID'sini diğer forma gönder
+                        frmUserMain._userId=userId; // Kullanıcı ID'sini diğer forma gönder
                         frmUserMain.Show();
                         break;
                 }

@@ -14,6 +14,8 @@ namespace PlusStokTakip.PresentationLayer
         FrmUrun frmUrun;
         FrmUpdate frmUpdate;
         FrmUser frmUser;
+        public string _userName;
+        public int _userId;
         public FrmUserMain()
         {
             InitializeComponent();
@@ -114,12 +116,18 @@ namespace PlusStokTakip.PresentationLayer
             {
                 frmUser = new FrmUser();
                 frmUser.MdiParent = this;
+                frmUser._userId = _userId; // Kullanıcı ID'sini geç
                 frmUser.Show();
             }
             else
             {
                 frmUser.BringToFront();
             }
+        }
+
+        private void FrmUserMain_Load(object sender, System.EventArgs e)
+        {
+            barStaticItem1.Caption = "Kullanıcı : " + _userName; // lblUserId bir Label kontrolü
         }
     }
 }
