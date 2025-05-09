@@ -50,7 +50,7 @@ namespace PlusStokTakip.PresentationLayer
                 foreach (var user in usersList)
                 {
                     currentStep++;
-                    labelStatus.Text = $"Yükleniyor: {(currentStep * 100) / totalSteps}%";
+                    UpdateProgress(currentStep, totalSteps);
                     Application.DoEvents(); // UI güncellemesi için
                     System.Threading.Thread.Sleep(100); // Simülasyon için kısa bir bekleme
                 }
@@ -60,19 +60,28 @@ namespace PlusStokTakip.PresentationLayer
                 foreach (var product in productsList)
                 {
                     currentStep++;
-                    labelStatus.Text = $"Yükleniyor: {(currentStep * 100) / totalSteps}%";
+                    UpdateProgress(currentStep, totalSteps);
                     Application.DoEvents(); // UI güncellemesi için
                     System.Threading.Thread.Sleep(100); // Simülasyon için kısa bir bekleme
                 }
 
                 // Yükleme tamamlandı
-                labelStatus.Text = "Yükleme tamamlandı! (100%)";
+                UpdateProgress(totalSteps, totalSteps); // %100 için güncelle
+
+                // Yükleme tamamlandıktan sonra biraz bekleyin
+                System.Threading.Thread.Sleep(1000); // 1 saniye bekle
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Yükleme sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Hide(); // Hata durumunda Splash ekranını kapat
             }
+        }
+
+        private void UpdateProgress(int currentStep, int totalSteps)
+        {
+            int percentage = (currentStep * 100) / totalSteps;
+            labelStatus.Text = $"Yükleniyor: {percentage}%";
         }
 
         private void SplashTimer_Tick(object sender, EventArgs e)
@@ -83,8 +92,8 @@ namespace PlusStokTakip.PresentationLayer
 
             // Login ekranını aç ve Splash ekranını gizle
             FrmLogin frmLogin = new FrmLogin();
-            frmLogin.Show();
             this.Hide(); // Splash ekranını kapat
+            frmLogin.Show();
         }
     }
 }

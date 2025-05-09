@@ -139,7 +139,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             try
             {
                 // Validation kontrolü
-                if (!ValidationHelper.ValidateControl(txtAd, "Kategori adı boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(txtBarkod, "Barkod boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbKategori, "Kategori seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbMarka, "Marka seçiniz!")) return;
@@ -188,8 +188,13 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Kategori adı boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(txtBarkod, "Barkod boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbKategori, "Kategori seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbMarka, "Marka seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbModel, "Model seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
 
@@ -229,6 +234,15 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
         {
             try
             {
+                if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtBarkod, "Barkod boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbKategori, "Kategori seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbMarka, "Marka seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbModel, "Model seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
+                if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
                 var productId = (int)gridView1.GetFocusedRowCellValue("ProductID");
                 var productToDelete = _productsManager.TGetById(productId);
 
