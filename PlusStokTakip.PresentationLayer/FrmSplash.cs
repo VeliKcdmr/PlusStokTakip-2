@@ -31,7 +31,7 @@ namespace PlusStokTakip.PresentationLayer
         {
             try
             {
-                // Timer oluştur ve 5 saniyede bir tetiklenmesi için ayarla
+                // Splash ekranının 5 saniye boyunca görünmesini sağla
                 splashTimer = new Timer();
                 splashTimer.Interval = 5000; // 5 saniye
                 splashTimer.Tick += SplashTimer_Tick; // Tick olayını bağla
@@ -78,22 +78,23 @@ namespace PlusStokTakip.PresentationLayer
             }
         }
 
+        private void SplashTimer_Tick(object sender, EventArgs e)
+        {
+            splashTimer.Stop(); // Timer'ı durdur
+            splashTimer.Dispose(); // Timer'ı bellekten temizle
+
+            // Login ekranını aç ve Splash ekranını gizle
+            using (FrmLogin frmLogin = new FrmLogin())
+            {
+                this.Hide(); // Splash ekranını kapat
+                frmLogin.ShowDialog(); // Login ekranını modal olarak aç
+            }
+        }
+
         private void UpdateProgress(int currentStep, int totalSteps)
         {
             int percentage = (currentStep * 100) / totalSteps;
             labelStatus.Text = $"Yükleniyor: {percentage}%";
-        }
-
-        private void SplashTimer_Tick(object sender, EventArgs e)
-        {
-            // Timer durdur ve bellekten temizle
-            splashTimer.Stop();
-            splashTimer.Dispose();
-
-            // Login ekranını aç ve Splash ekranını gizle
-            FrmLogin frmLogin = new FrmLogin();
-            this.Hide(); // Splash ekranını kapat
-            frmLogin.Show();
         }
     }
 }

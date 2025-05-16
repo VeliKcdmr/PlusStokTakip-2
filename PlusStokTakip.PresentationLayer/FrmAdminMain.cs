@@ -14,6 +14,7 @@ namespace PlusStokTakip.PresentationLayer
         FrmUrun frmUrun;
         FrmUpdate frmUpdate;
         FrmUser frmUser;
+        FrmDataBase frmDataBase;
         public FrmAdminMain()
         {
             InitializeComponent();
@@ -119,6 +120,22 @@ namespace PlusStokTakip.PresentationLayer
             else
             {
                 frmUser.BringToFront();
+            }
+        }
+
+        private void btnDataBase_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (frmDataBase == null || frmDataBase.IsDisposed)
+            {
+                frmDataBase = new FrmDataBase
+                {
+                    MdiParent = this
+                };
+                frmDataBase.Show();
+            }
+            else
+            {
+                frmDataBase.BringToFront();
             }
         }
     }

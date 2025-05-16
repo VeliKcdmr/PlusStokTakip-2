@@ -266,7 +266,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 10F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmUser";
-            this.Text = "FrmUser";
+            this.Text = "Kullanıcı İşlemleri";
             this.Load += new System.EventHandler(this.FrmUser_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
