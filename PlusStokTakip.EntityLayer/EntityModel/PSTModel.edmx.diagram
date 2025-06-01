@@ -16,7 +16,17 @@
         <AssociationConnector Association="PlusStokTakipModel.FK__Products__ModelI__4A8310C6" ManuallyRouted="false" />
         <AssociationConnector Association="PlusStokTakipModel.FK__Products__ShelfI__4C6B5938" ManuallyRouted="false" />
         <AssociationConnector Association="PlusStokTakipModel.FK_Products_Brands" />
-        <EntityTypeShape EntityType="PlusStokTakipModel.Users" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.Users" Width="1.5" PointX="3.125" PointY="4.875" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.Purchases" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.Sales" Width="1.5" PointX="11.5" PointY="0.5" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.StockMovements" Width="1.5" PointX="9.5" PointY="0.5" />
+        <AssociationConnector Association="PlusStokTakipModel.FK__Purchases__Produ__13BCEBC1" />
+        <AssociationConnector Association="PlusStokTakipModel.FK__Sales__ProductID__0B27A5C0" />
+        <AssociationConnector Association="PlusStokTakipModel.FK__StockMove__Produ__7AF13DF7" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.Customers" Width="1.5" PointX="11.5" PointY="4.625" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.Suppliers" Width="1.5" PointX="5.375" PointY="5.5" />
+        <AssociationConnector Association="PlusStokTakipModel.FK__Sales__CustomerI__0C1BC9F9" />
+        <AssociationConnector Association="PlusStokTakipModel.FK__Purchases__Suppl__14B10FFA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

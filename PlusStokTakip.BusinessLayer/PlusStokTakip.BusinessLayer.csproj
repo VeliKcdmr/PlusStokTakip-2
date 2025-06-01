@@ -53,16 +53,20 @@
   <ItemGroup>
     <Compile Include="Abstract\IBrandsService.cs" />
     <Compile Include="Abstract\ICategoriesService.cs" />
+    <Compile Include="Abstract\ICustomersServices.cs" />
     <Compile Include="Abstract\IGenericService.cs" />
     <Compile Include="Abstract\IModelsService.cs" />
     <Compile Include="Abstract\IProductsService.cs" />
     <Compile Include="Abstract\IShelvesService.cs" />
+    <Compile Include="Abstract\ISuppliersService.cs" />
     <Compile Include="Abstract\IUsersService.cs" />
     <Compile Include="Concrete\BrandsManager.cs" />
     <Compile Include="Concrete\CategoriesManager.cs" />
+    <Compile Include="Concrete\CustomersManager.cs" />
     <Compile Include="Concrete\ModelsManager.cs" />
     <Compile Include="Concrete\ProductsManager.cs" />
     <Compile Include="Concrete\ShelvesManager.cs" />
+    <Compile Include="Concrete\SuppliersManager.cs" />
     <Compile Include="Concrete\UsersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

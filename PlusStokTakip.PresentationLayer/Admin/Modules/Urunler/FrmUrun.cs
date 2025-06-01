@@ -1,9 +1,13 @@
-﻿using PlusStokTakip.BusinessLayer.Concrete;
+﻿using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid.Views.Base;
+using PlusStokTakip.BusinessLayer.Concrete;
 using PlusStokTakip.DataAccessLayer.EntityFramework;
 using PlusStokTakip.EntityLayer.EntityModel;
 using StokTakipApp.PresentationLayer.Helpers;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -33,16 +37,18 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
         {
             try
             {
-                // Tüm verileri tek seferde alın
+                // **Tüm verileri tek seferde alın**
                 var categories = _categoriesManager.TGetAll().ToDictionary(c => c.CategoryID, c => c.CategoryName);
                 var brands = _brandsManager.TGetAll().ToDictionary(b => b.BrandID, b => b.BrandName);
                 var models = _modelsManager.TGetAll().ToDictionary(m => m.ModelID, m => new { m.ModelName, m.ModelYear, m.BrandID });
                 var shelves = _shelvesManager.TGetAll().ToDictionary(s => s.ShelfID, s => s.ShelfName);
 
-                // Ürünleri yükle
+                // **Ürünleri yükle**
                 var products = _productsManager.TGetAll()
                     .Select(p => new
                     {
+                        // **Resmi kare içine kırp ve yeniden boyutlandır**
+                        ImageData = ResizeToSquare(p.ImageData, 128), // **128x128 px olarak kare içine ayarla**
                         p.ProductID,
                         p.ProductName,
                         p.Barcode,
@@ -54,31 +60,60 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                         ModelName = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelName : "Bilinmiyor",
                         ModelYear = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelYear : (int?)null,
                         p.StockQuantity,
-                        p.Price,
+                        Price = string.Format("{0:#,##0.00} ₺", p.Price),
                         IsActive = p.IsActive ? "Aktif" : "Pasif"
                     }).ToList();
 
-                // GridControl'e bağla
+                // **GridControl'e bağla**
                 gridControl1.DataSource = null;
                 gridControl1.DataSource = products;
 
-                // Kolon başlıklarını düzenle
-                gridView1.Columns["ProductID"].Caption = "Ürün ID";
-                gridView1.Columns["ProductName"].Caption = "Ürün Adı";
-                gridView1.Columns["Barcode"].Caption = "Barkod";
-                gridView1.Columns["ShelfName"].Caption = "Raf Adı";
-                gridView1.Columns["CategoryName"].Caption = "Kategori Adı";
-                gridView1.Columns["BrandName"].Caption = "Marka Adı";
-                gridView1.Columns["ModelName"].Caption = "Model Adı";
-                gridView1.Columns["ModelYear"].Caption = "Model Yılı";
-                gridView1.Columns["StockQuantity"].Caption = "Stok Miktarı";
-                gridView1.Columns["Price"].Caption = "Fiyat";
-                gridView1.Columns["IsActive"].Caption = "Durum";
+                // **Resim Kolonu İçin Repository Item Kullan**
+                RepositoryItemPictureEdit riPictureEdit = new RepositoryItemPictureEdit
+                {
+                    SizeMode = PictureSizeMode.Clip, // **Kare içine kırp**
+                    NullText = "Resim Yok",
+                    AllowFocused = false,
+                    PictureAlignment = ContentAlignment.MiddleCenter
+                };
+                gridControl1.RepositoryItems.Add(riPictureEdit);
+                layoutView1.Columns["ImageData"].ColumnEdit = riPictureEdit;
+                layoutView1.CardCaptionFormat = "{ProductName}"; // **Kart başlığı formatı**
+                // **Kolon başlıklarını düzenle**
+                layoutView1.Columns["ImageData"].Caption = "Ürün Resmi";
+                layoutView1.Columns["ProductID"].Caption = "Ürün ID";
+                layoutView1.Columns["ProductName"].Caption = "Ürün Adı";
+                layoutView1.Columns["Barcode"].Caption = "Barkod";
+                layoutView1.Columns["ShelfName"].Caption = "Raf Adı";
+                layoutView1.Columns["CategoryName"].Caption = "Kategori Adı";
+                layoutView1.Columns["BrandName"].Caption = "Marka Adı";
+                layoutView1.Columns["ModelName"].Caption = "Model Adı";
+                layoutView1.Columns["ModelYear"].Caption = "Model Yılı";
+                layoutView1.Columns["StockQuantity"].Caption = "Stok Miktarı";
+                layoutView1.Columns["Price"].Caption = "Fiyat";
+                layoutView1.Columns["IsActive"].Caption = "Durum";
             }
             catch (Exception ex)
             {
-                // Hata mesajını göster
                 MessageBox.Show($"Ürünler yüklenirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // **Resmi Kare İçine Yeniden Boyutlandırma Fonksiyonu**
+        private Image ResizeToSquare(byte[] imageData, int size)
+        {
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                Image originalImage = Image.FromStream(ms);
+
+                Bitmap squareImage = new Bitmap(size, size);
+                using (Graphics g = Graphics.FromImage(squareImage))
+                {
+                    g.Clear(Color.Transparent); // **Arka planı şeffaf yap**
+                    g.DrawImage(originalImage, 0, 0, size, size);
+                }
+
+                return squareImage;
             }
         }
         private void LoadCategories()
@@ -112,6 +147,8 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             cmbModel.Enabled = false;
             cmbYil.Enabled = false;
             cmbRaf.Enabled = false;
+            pictureEdit1.Image = null;
+
             // Reset text fields
             txtAd.Text = string.Empty;
             txtBarkod.Text = string.Empty;
@@ -127,18 +164,20 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             loadProducts();
             LoadCategories();
             CustomizeLookupEditAppearance();
+            layoutView1.RefreshData();
+            gridControl1.RefreshDataSource();
         }
         private void FrmUrun_Load(object sender, EventArgs e)
         {
             CleanForm();
-
+            this.layoutView1.CustomUnboundColumnData += layoutView1_CustomUnboundColumnData;
         }
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
             try
             {
-                // Validation kontrolü
+                // **Validation Kontrolü** (Daha Kısa ve Okunaklı)
                 if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(txtBarkod, "Barkod boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbKategori, "Kategori seçiniz!")) return;
@@ -148,39 +187,53 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
-                var selectedCategoryId = (int)cmbKategori.EditValue;
-                var selectedBrandId = (int)cmbMarka.EditValue;
+
+                var selectedCategoryId = Convert.ToInt32(cmbKategori.EditValue);
+                var selectedBrandId = Convert.ToInt32(cmbMarka.EditValue);
                 var selectedModelName = cmbModel.EditValue.ToString();
-                var selectedYear = (int)cmbYil.EditValue;
-                var selectedShelfId = (int)cmbRaf.EditValue;
-                var stockQuantity = (int)spinAdet.Value;
-                var price = decimal.Parse(txtFiyat.Text);
-                // ModelName ve ModelYear eşleşmesine göre modeli al
-                var selectedModel = _modelsManager.TGetAll().FirstOrDefault(m => m.ModelName.Equals(selectedModelName, StringComparison.OrdinalIgnoreCase) && m.ModelYear == selectedYear);
-                // Yeni ürün nesnesi oluştur ve doldur
+                var selectedYear = Convert.ToInt32(cmbYil.EditValue);
+                var selectedShelfId = Convert.ToInt32(cmbRaf.EditValue);
+                var stockQuantity = Convert.ToInt32(spinAdet.Value);
+                var price = decimal.TryParse(txtFiyat.Text, out decimal parsedPrice) ? parsedPrice : 0;
+
+                // **ModelName ve ModelYear eşleşmesine göre modeli al**
+                var selectedModel = _modelsManager.TGetAll()
+                    .FirstOrDefault(m => m.ModelName.Equals(selectedModelName, StringComparison.OrdinalIgnoreCase) && m.ModelYear == selectedYear);
+
+                if (selectedModel == null)
+                {
+                    MessageBox.Show("Seçilen model bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // **Yeni Ürün Nesnesi Oluştur ve Doldur**
                 Products newProduct = new Products
                 {
                     ProductName = txtAd.Text,
                     Barcode = txtBarkod.Text,
                     CategoryID = selectedCategoryId,
-                    BrandID = selectedBrandId, // Doğrudan seçilen BrandID kullanılıyor
-                    ModelID = selectedModel.ModelID, // ModelID'yi al                    
+                    BrandID = selectedBrandId,
+                    ModelID = selectedModel.ModelID, // **Eğer `selectedModel` null ise hata vermeyecek**
                     ShelfID = selectedShelfId,
                     StockQuantity = stockQuantity,
                     Price = price,
-                    IsActive = true, // Varsayılan olarak aktif
+                    ImageData = selectedImageBytes, // **Resim verisini ekle**
+                    IsActive = true,
                     CDate = DateTime.Now.Date
+
                 };
-                // Ürünü kaydet
+
+                // **Ürünü Kaydet**
                 _productsManager.TInsert(newProduct);
-                // Başarılı mesaj
+
                 MessageBox.Show("Ürün başarıyla kaydedildi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Formu yenile
+
+                // **Formu Yenile**
                 CleanForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Bir hata oluştu:\n{ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -197,8 +250,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
-
-                var productId = (int)gridView1.GetFocusedRowCellValue("ProductID");
+                var productId = Convert.ToInt32(layoutView1.GetFocusedRowCellValue("ProductID"));
                 var productToUpdate = _productsManager.TGetById(productId);
 
                 if (productToUpdate == null)
@@ -206,7 +258,6 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                     MessageBox.Show("Güncellenecek ürün bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
                 productToUpdate.ProductName = txtAd.Text;
                 productToUpdate.Barcode = txtBarkod.Text;
                 productToUpdate.StockQuantity = (int)spinAdet.Value;
@@ -218,15 +269,21 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 productToUpdate.ShelfID = (int)cmbRaf.EditValue;
                 productToUpdate.IsActive = tsDurum.IsOn;
                 productToUpdate.UDate = DateTime.Now.Date;
+                // **Resmi veritabanına kaydet**
+                if (selectedImageBytes != null && selectedImageBytes.Length > 0)
+                {
+                    productToUpdate.ImageData = selectedImageBytes;
 
-                _productsManager.TUpdate(productToUpdate);
+                }
+
+                _productsManager.TUpdate(productToUpdate); // Güncelleme işlemi
+
                 MessageBox.Show("Ürün başarıyla güncellendi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 CleanForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Bir hata oluştu:\n{ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -243,7 +300,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
-                var productId = (int)gridView1.GetFocusedRowCellValue("ProductID");
+                var productId = (int)layoutView1.GetFocusedRowCellValue("ProductID");
                 var productToDelete = _productsManager.TGetById(productId);
 
                 if (productToDelete == null)
@@ -273,7 +330,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
         {
             try
             {
-                var productId = (int)gridView1.GetFocusedRowCellValue("ProductID");
+                var productId = (int)layoutView1.GetFocusedRowCellValue("ProductID");
                 var selectedProduct = _productsManager.TGetById(productId);
 
                 if (selectedProduct == null)
@@ -292,6 +349,9 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 cmbYil.EditValue = selectedProduct.Models.ModelYear;
                 cmbRaf.EditValue = selectedProduct.ShelfID;
                 tsDurum.IsOn = selectedProduct.IsActive;
+                pictureEdit1.Image = selectedProduct.ImageData != null && selectedProduct.ImageData.Length > 0
+                    ? Image.FromStream(new MemoryStream(selectedProduct.ImageData))
+                    : null; // Resim yoksa null ata
 
                 btnKaydet.Enabled = false;
                 btnGuncelle.Enabled = true;
@@ -365,7 +425,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
 
                 // Sütun düzenlemesi
                 cmbModel.Properties.Columns.Clear();
-                cmbModel.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ModelName", "Model Adı"));
+                cmbModel.Properties.Columns.Add(new LookUpColumnInfo("ModelName", "Model Adı"));
             }
             catch (Exception ex)
             {
@@ -399,7 +459,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
 
                 // Kolon düzenlemesi
                 cmbYil.Properties.Columns.Clear();
-                cmbYil.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ModelYear", "Model Yılı"));
+                cmbYil.Properties.Columns.Add(new LookUpColumnInfo("ModelYear", "Model Yılı"));
             }
             catch (Exception ex)
             {
@@ -435,6 +495,58 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             catch (Exception ex)
             {
                 MessageBox.Show($"Raflar yüklenirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private byte[] selectedImageBytes = null;
+        private void btnResimSec_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Ürün Resmi Seç";
+                ofd.Filter = "Resim Dosyaları|*.jpg;*.jpeg;*.png;*.bmp";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // **Resmi byte dizisine çevir**
+                        byte[] imageBytes = File.ReadAllBytes(ofd.FileName);
+
+                        // **Resmi ekranda göster**
+                        using (MemoryStream ms = new MemoryStream(imageBytes))
+                        {
+                            pictureEdit1.Image = Image.FromStream(ms);
+                        }
+
+                        // **Resmi geçici olarak bellekte sakla**
+                        selectedImageBytes = imageBytes; // Bu değişkeni form seviyesinde tanımla
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Resim seçerken hata oluştu:\n{ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void layoutView1_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column.FieldName == "StockQuantity")
+            {
+                int stockQuantity = Convert.ToInt32(e.Value);
+                string stockText = $"{stockQuantity:N0}"; // **Formatlı stok miktarı**
+                e.DisplayText = stockText;
+            }
+
+        }
+
+        private void layoutView1_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
+        {
+            if (e.Column.FieldName == "StockQuantity")
+            {
+                int stockQuantity = Convert.ToInt32(layoutView1.GetRowCellValue(e.ListSourceRowIndex, "StockQuantity"));
+                int stockStatus = stockQuantity == 0 ? 0 : (stockQuantity >= 1 && stockQuantity <= 9) ? 2 : 1;
+                e.Value = stockStatus;
             }
         }
     }

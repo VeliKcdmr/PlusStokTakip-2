@@ -31,5 +31,10 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Shelves> Shelves { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Purchases> Purchases { get; set; }
+        public virtual DbSet<Sales> Sales { get; set; }
+        public virtual DbSet<StockMovements> StockMovements { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<Suppliers> Suppliers { get; set; }
     }
 }

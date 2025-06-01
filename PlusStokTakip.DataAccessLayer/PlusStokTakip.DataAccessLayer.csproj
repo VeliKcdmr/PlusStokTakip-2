@@ -53,16 +53,20 @@
   <ItemGroup>
     <Compile Include="Abstract\IBrandsDal.cs" />
     <Compile Include="Abstract\ICategoriesDal.cs" />
+    <Compile Include="Abstract\ICustomersDal.cs" />
     <Compile Include="Abstract\IGenericDal.cs" />
     <Compile Include="Abstract\IModelsDal.cs" />
     <Compile Include="Abstract\IProductsDal.cs" />
     <Compile Include="Abstract\IShelvesDal.cs" />
+    <Compile Include="Abstract\ISuppliersDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="EntityFramework\EfBrandsDal.cs" />
     <Compile Include="EntityFramework\EfCategoriesDal.cs" />
+    <Compile Include="EntityFramework\EfCustomersDal.cs" />
     <Compile Include="EntityFramework\EfModelsDal.cs" />
     <Compile Include="EntityFramework\EfProductsDal.cs" />
     <Compile Include="EntityFramework\EfShelvesDal.cs" />
+    <Compile Include="EntityFramework\EfSuppliersDal.cs" />
     <Compile Include="EntityFramework\EfUsersDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

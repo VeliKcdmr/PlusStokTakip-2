@@ -147,6 +147,18 @@
     <Compile Include="Admin\Modules\Ayarlar\FrmUser.Designer.cs">
       <DependentUpon>FrmUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Modules\Cariler\FrmTedarikci.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\Modules\Cariler\FrmTedarikci.Designer.cs">
+      <DependentUpon>FrmTedarikci.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Modules\Cariler\FrmMusteriFirma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\Modules\Cariler\FrmMusteriFirma.Designer.cs">
+      <DependentUpon>FrmMusteriFirma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Modules\Tanimlar\FrmKategori.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +266,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Modules\Ayarlar\FrmUser.resx">
       <DependentUpon>FrmUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Modules\Cariler\FrmTedarikci.resx">
+      <DependentUpon>FrmTedarikci.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Modules\Cariler\FrmMusteriFirma.resx">
+      <DependentUpon>FrmMusteriFirma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Modules\Tanimlar\FrmKategori.resx">
       <DependentUpon>FrmKategori.cs</DependentUpon>

@@ -14,6 +14,14 @@ namespace PlusStokTakip.EntityLayer.EntityModel
     
     public partial class Products
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Products()
+        {
+            this.Purchases = new HashSet<Purchases>();
+            this.Sales = new HashSet<Sales>();
+            this.StockMovements = new HashSet<StockMovements>();
+        }
+    
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string Barcode { get; set; }
@@ -26,10 +34,17 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public bool IsActive { get; set; }
         public System.DateTime CDate { get; set; }
         public Nullable<System.DateTime> UDate { get; set; }
+        public byte[] ImageData { get; set; }
     
         public virtual Categories Categories { get; set; }
         public virtual Models Models { get; set; }
         public virtual Shelves Shelves { get; set; }
         public virtual Brands Brands { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Purchases> Purchases { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sales> Sales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StockMovements> StockMovements { get; set; }
     }
 }

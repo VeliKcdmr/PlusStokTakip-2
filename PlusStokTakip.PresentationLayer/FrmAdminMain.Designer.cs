@@ -39,8 +39,14 @@
             this.btnUrun = new DevExpress.XtraBars.BarButtonItem();
             this.btnUpdate = new DevExpress.XtraBars.BarButtonItem();
             this.btnUser = new DevExpress.XtraBars.BarButtonItem();
+            this.btnDataBase = new DevExpress.XtraBars.BarButtonItem();
+            this.btnCustomer = new DevExpress.XtraBars.BarButtonItem();
+            this.BtnTedarikci = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -49,9 +55,8 @@
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.btnDataBase = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.SuspendLayout();
@@ -73,12 +78,15 @@
             this.btnUrun,
             this.btnUpdate,
             this.btnUser,
-            this.btnDataBase});
+            this.btnDataBase,
+            this.btnCustomer,
+            this.BtnTedarikci});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 9;
+            this.ribbonControl1.MaxItemId = 11;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage2,
+            this.ribbonPage4,
             this.ribbonPage1,
             this.ribbonPage3});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.MacOffice;
@@ -153,6 +161,33 @@
             this.btnUser.Name = "btnUser";
             this.btnUser.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUser_ItemClick);
             // 
+            // btnDataBase
+            // 
+            this.btnDataBase.Caption = "Veritabanı Ayarları";
+            this.btnDataBase.Id = 8;
+            this.btnDataBase.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnDataBase.ImageOptions.Image")));
+            this.btnDataBase.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnDataBase.ImageOptions.LargeImage")));
+            this.btnDataBase.Name = "btnDataBase";
+            this.btnDataBase.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDataBase_ItemClick);
+            // 
+            // btnCustomer
+            // 
+            this.btnCustomer.Caption = "Müşteri & Firma";
+            this.btnCustomer.Id = 9;
+            this.btnCustomer.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnCustomer.ImageOptions.Image")));
+            this.btnCustomer.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnCustomer.ImageOptions.LargeImage")));
+            this.btnCustomer.Name = "btnCustomer";
+            this.btnCustomer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCustomer_ItemClick);
+            // 
+            // BtnTedarikci
+            // 
+            this.BtnTedarikci.Caption = "Tedarikçi";
+            this.BtnTedarikci.Id = 10;
+            this.BtnTedarikci.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("BtnTedarikci.ImageOptions.Image")));
+            this.BtnTedarikci.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("BtnTedarikci.ImageOptions.LargeImage")));
+            this.BtnTedarikci.Name = "BtnTedarikci";
+            this.BtnTedarikci.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BtnTedarikci_ItemClick);
+            // 
             // ribbonPage2
             // 
             this.ribbonPage2.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -164,6 +199,26 @@
             // 
             this.ribbonPageGroup5.ItemLinks.Add(this.btnUrun);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
+            // 
+            // ribbonPage4
+            // 
+            this.ribbonPage4.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup9,
+            this.ribbonPageGroup10});
+            this.ribbonPage4.Name = "ribbonPage4";
+            this.ribbonPage4.Text = "Cari Yönetimi";
+            // 
+            // ribbonPageGroup9
+            // 
+            this.ribbonPageGroup9.ItemLinks.Add(this.btnCustomer);
+            this.ribbonPageGroup9.Name = "ribbonPageGroup9";
+            this.ribbonPageGroup9.Text = "Müşteri Yönetimi";
+            // 
+            // ribbonPageGroup10
+            // 
+            this.ribbonPageGroup10.ItemLinks.Add(this.BtnTedarikci);
+            this.ribbonPageGroup10.Name = "ribbonPageGroup10";
+            this.ribbonPageGroup10.Text = "Tedarikçi Yönetimi";
             // 
             // ribbonPage1
             // 
@@ -216,27 +271,18 @@
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
             this.ribbonPageGroup7.Text = "Kullanıcı İşlemleri";
             // 
+            // ribbonPageGroup8
+            // 
+            this.ribbonPageGroup8.ItemLinks.Add(this.btnDataBase);
+            this.ribbonPageGroup8.Name = "ribbonPageGroup8";
+            this.ribbonPageGroup8.Text = "Veri Tabanı İşlemleri";
+            // 
             // ribbonStatusBar1
             // 
             this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 541);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
             this.ribbonStatusBar1.Size = new System.Drawing.Size(1022, 27);
-            // 
-            // btnDataBase
-            // 
-            this.btnDataBase.Caption = "Veritabanı Ayarları";
-            this.btnDataBase.Id = 8;
-            this.btnDataBase.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnDataBase.ImageOptions.Image")));
-            this.btnDataBase.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnDataBase.ImageOptions.LargeImage")));
-            this.btnDataBase.Name = "btnDataBase";
-            this.btnDataBase.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDataBase_ItemClick);
-            // 
-            // ribbonPageGroup8
-            // 
-            this.ribbonPageGroup8.ItemLinks.Add(this.btnDataBase);
-            this.ribbonPageGroup8.Name = "ribbonPageGroup8";
-            this.ribbonPageGroup8.Text = "Veri Tabanı İşlemleri";
             // 
             // FrmAdminMain
             // 
@@ -282,5 +328,10 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private DevExpress.XtraBars.BarButtonItem btnDataBase;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
+        private DevExpress.XtraBars.BarButtonItem btnCustomer;
+        private DevExpress.XtraBars.BarButtonItem BtnTedarikci;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage4;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
     }
 }

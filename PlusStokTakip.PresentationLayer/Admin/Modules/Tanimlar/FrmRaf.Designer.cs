@@ -65,10 +65,10 @@
             // 
             this.panelControl2.Controls.Add(this.gridControl1);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl2.Location = new System.Drawing.Point(335, 0);
+            this.panelControl2.Location = new System.Drawing.Point(308, 0);
             this.panelControl2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(617, 344);
+            this.panelControl2.Size = new System.Drawing.Size(644, 344);
             this.panelControl2.TabIndex = 4;
             // 
             // gridControl1
@@ -79,7 +79,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(613, 340);
+            this.gridControl1.Size = new System.Drawing.Size(640, 340);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -87,11 +87,11 @@
             // 
             // gridView1
             // 
-            this.gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.gridView1.Appearance.HeaderPanel.Options.UseFont = true;
             this.gridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.gridView1.Appearance.Row.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.gridView1.Appearance.Row.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.gridView1.Appearance.Row.Options.UseFont = true;
             this.gridView1.Appearance.Row.Options.UseTextOptions = true;
             this.gridView1.Appearance.Row.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
@@ -111,7 +111,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(335, 344);
+            this.panelControl1.Size = new System.Drawing.Size(308, 344);
             this.panelControl1.TabIndex = 3;
             // 
             // groupControl2
@@ -123,57 +123,57 @@
             this.groupControl2.Controls.Add(this.btnGuncelle);
             this.groupControl2.Controls.Add(this.btnKaydet);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl2.Location = new System.Drawing.Point(2, 114);
+            this.groupControl2.Location = new System.Drawing.Point(2, 110);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(331, 228);
+            this.groupControl2.Size = new System.Drawing.Size(304, 232);
             this.groupControl2.TabIndex = 1;
             // 
             // btnRafYazdir
             // 
-            this.btnRafYazdir.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnRafYazdir.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnRafYazdir.Appearance.Options.UseFont = true;
             this.btnRafYazdir.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnRafYazdir.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnRafYazdir.ImageOptions.Image")));
+            this.btnRafYazdir.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRafYazdir.ImageOptions.SvgImage")));
             this.btnRafYazdir.Location = new System.Drawing.Point(10, 76);
             this.btnRafYazdir.Name = "btnRafYazdir";
-            this.btnRafYazdir.Size = new System.Drawing.Size(112, 33);
+            this.btnRafYazdir.Size = new System.Drawing.Size(105, 33);
             this.btnRafYazdir.TabIndex = 7;
             this.btnRafYazdir.Text = "Raf Yazdır";
             this.btnRafYazdir.Click += new System.EventHandler(this.btnRafYazdir_Click);
             // 
             // btnSil
             // 
-            this.btnSil.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnSil.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnSil.Appearance.Options.UseFont = true;
-            this.btnSil.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSil.ImageOptions.Image")));
+            this.btnSil.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSil.ImageOptions.SvgImage")));
             this.btnSil.Location = new System.Drawing.Point(209, 37);
             this.btnSil.Name = "btnSil";
-            this.btnSil.Size = new System.Drawing.Size(75, 33);
+            this.btnSil.Size = new System.Drawing.Size(68, 33);
             this.btnSil.TabIndex = 6;
             this.btnSil.Text = "Sil";
             this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
             // btnGuncelle
             // 
-            this.btnGuncelle.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnGuncelle.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnGuncelle.Appearance.Options.UseFont = true;
-            this.btnGuncelle.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnGuncelle.ImageOptions.Image")));
+            this.btnGuncelle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnGuncelle.ImageOptions.SvgImage")));
             this.btnGuncelle.Location = new System.Drawing.Point(107, 37);
             this.btnGuncelle.Name = "btnGuncelle";
-            this.btnGuncelle.Size = new System.Drawing.Size(95, 33);
+            this.btnGuncelle.Size = new System.Drawing.Size(88, 33);
             this.btnGuncelle.TabIndex = 5;
             this.btnGuncelle.Text = "Güncelle";
             this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
             // 
             // btnKaydet
             // 
-            this.btnKaydet.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnKaydet.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnKaydet.Appearance.Options.UseFont = true;
             this.btnKaydet.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnKaydet.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnKaydet.ImageOptions.Image")));
+            this.btnKaydet.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnKaydet.ImageOptions.SvgImage")));
             this.btnKaydet.Location = new System.Drawing.Point(10, 37);
             this.btnKaydet.Name = "btnKaydet";
-            this.btnKaydet.Size = new System.Drawing.Size(91, 33);
+            this.btnKaydet.Size = new System.Drawing.Size(84, 33);
             this.btnKaydet.TabIndex = 4;
             this.btnKaydet.Text = "Kaydet";
             this.btnKaydet.Click += new System.EventHandler(this.btnKaydet_Click);
@@ -191,66 +191,66 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(2, 2);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(331, 112);
+            this.groupControl1.Size = new System.Drawing.Size(304, 108);
             this.groupControl1.TabIndex = 0;
             // 
             // tsDurum
             // 
             this.tsDurum.EditValue = true;
-            this.tsDurum.Location = new System.Drawing.Point(107, 86);
+            this.tsDurum.Location = new System.Drawing.Point(67, 87);
             this.tsDurum.Name = "tsDurum";
-            this.tsDurum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.tsDurum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.tsDurum.Properties.Appearance.Options.UseFont = true;
             this.tsDurum.Properties.OffText = "Pasif";
             this.tsDurum.Properties.OnText = "Aktif";
-            this.tsDurum.Size = new System.Drawing.Size(95, 23);
+            this.tsDurum.Size = new System.Drawing.Size(95, 18);
             this.tsDurum.TabIndex = 3;
             // 
             // txtAciklama
             // 
-            this.txtAciklama.Location = new System.Drawing.Point(107, 56);
+            this.txtAciklama.Location = new System.Drawing.Point(67, 57);
             this.txtAciklama.Name = "txtAciklama";
-            this.txtAciklama.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtAciklama.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.txtAciklama.Properties.Appearance.Options.UseFont = true;
-            this.txtAciklama.Size = new System.Drawing.Size(216, 24);
+            this.txtAciklama.Size = new System.Drawing.Size(216, 20);
             this.txtAciklama.TabIndex = 2;
             // 
             // txtAd
             // 
-            this.txtAd.Location = new System.Drawing.Point(107, 26);
+            this.txtAd.Location = new System.Drawing.Point(67, 27);
             this.txtAd.Name = "txtAd";
-            this.txtAd.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtAd.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.txtAd.Properties.Appearance.Options.UseFont = true;
-            this.txtAd.Size = new System.Drawing.Size(216, 24);
+            this.txtAd.Size = new System.Drawing.Size(216, 20);
             this.txtAd.TabIndex = 1;
             // 
             // labelControl3
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(34, 88);
+            this.labelControl3.Location = new System.Drawing.Point(14, 89);
             this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(67, 18);
+            this.labelControl3.Size = new System.Drawing.Size(47, 13);
             this.labelControl3.TabIndex = 0;
             this.labelControl3.Text = "Durumu : ";
             // 
             // labelControl2
             // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(30, 58);
+            this.labelControl2.Location = new System.Drawing.Point(10, 59);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(71, 18);
+            this.labelControl2.Size = new System.Drawing.Size(51, 13);
             this.labelControl2.TabIndex = 0;
             this.labelControl2.Text = "Açıklama : ";
             // 
             // labelControl1
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(40, 29);
+            this.labelControl1.Location = new System.Drawing.Point(16, 30);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(61, 18);
+            this.labelControl1.Size = new System.Drawing.Size(45, 13);
             this.labelControl1.TabIndex = 0;
             this.labelControl1.Text = "Raf Adı : ";
             // 

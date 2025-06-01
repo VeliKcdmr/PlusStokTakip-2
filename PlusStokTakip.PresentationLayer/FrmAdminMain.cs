@@ -1,6 +1,7 @@
 ﻿using PlusStokTakip.PresentationLayer.Admin.Modules.Ayarlar;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Defines;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Urunler;
+using PlusStokTakip.PresentationLayer.Admin.Modules.Cariler;
 using System.Windows.Forms;
 
 namespace PlusStokTakip.PresentationLayer
@@ -15,6 +16,8 @@ namespace PlusStokTakip.PresentationLayer
         FrmUpdate frmUpdate;
         FrmUser frmUser;
         FrmDataBase frmDataBase;
+        FrmMusteriFirma frmMusteriFirma;
+        FrmTedarikci frmTedarikci;
         public FrmAdminMain()
         {
             InitializeComponent();
@@ -136,6 +139,34 @@ namespace PlusStokTakip.PresentationLayer
             else
             {
                 frmDataBase.BringToFront();
+            }
+        }
+
+        private void btnCustomer_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (frmMusteriFirma == null || frmMusteriFirma.IsDisposed)
+            {
+                frmMusteriFirma = new FrmMusteriFirma();
+                frmMusteriFirma.MdiParent = this;
+                frmMusteriFirma.Show();
+            }
+            else
+            {
+                frmMusteriFirma.BringToFront();
+            }
+        }
+
+        private void BtnTedarikci_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (frmTedarikci == null || frmTedarikci.IsDisposed)
+            {
+                frmTedarikci = new FrmTedarikci();
+                frmTedarikci.MdiParent = this;
+                frmTedarikci.Show();
+            }
+            else
+            {
+                frmTedarikci.BringToFront();
             }
         }
     }

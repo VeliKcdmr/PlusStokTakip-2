@@ -59,6 +59,9 @@
     <Compile Include="EntityModel\Categories.cs">
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\Customers.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Models.cs">
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>
@@ -80,7 +83,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PSTModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\Purchases.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Sales.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Shelves.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\StockMovements.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Suppliers.cs">
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Users.cs">
