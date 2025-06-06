@@ -51,21 +51,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBankTransactionsDal.cs" />
     <Compile Include="Abstract\IBrandsDal.cs" />
+    <Compile Include="Abstract\ICashRegisterDal.cs" />
     <Compile Include="Abstract\ICategoriesDal.cs" />
     <Compile Include="Abstract\ICustomersDal.cs" />
     <Compile Include="Abstract\IGenericDal.cs" />
     <Compile Include="Abstract\IModelsDal.cs" />
+    <Compile Include="Abstract\IPaymentsDal.cs" />
     <Compile Include="Abstract\IProductsDal.cs" />
+    <Compile Include="Abstract\IPurchasesDal.cs" />
+    <Compile Include="Abstract\IReceiptsDal.cs" />
+    <Compile Include="Abstract\ISalesDal.cs" />
     <Compile Include="Abstract\IShelvesDal.cs" />
+    <Compile Include="Abstract\IStockMovementsDal.cs" />
     <Compile Include="Abstract\ISuppliersDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
+    <Compile Include="EntityFramework\EfBankTransactionsDal.cs" />
     <Compile Include="EntityFramework\EfBrandsDal.cs" />
+    <Compile Include="EntityFramework\EfCashRegisterDal.cs" />
     <Compile Include="EntityFramework\EfCategoriesDal.cs" />
     <Compile Include="EntityFramework\EfCustomersDal.cs" />
     <Compile Include="EntityFramework\EfModelsDal.cs" />
+    <Compile Include="EntityFramework\EfPaymentsDal.cs" />
     <Compile Include="EntityFramework\EfProductsDal.cs" />
+    <Compile Include="EntityFramework\EfPurchasesDal.cs" />
+    <Compile Include="EntityFramework\EfReceiptsDal.cs" />
+    <Compile Include="EntityFramework\EfSalesDal.cs" />
     <Compile Include="EntityFramework\EfShelvesDal.cs" />
+    <Compile Include="EntityFramework\EfStockMovementsDal.cs" />
     <Compile Include="EntityFramework\EfSuppliersDal.cs" />
     <Compile Include="EntityFramework\EfUsersDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

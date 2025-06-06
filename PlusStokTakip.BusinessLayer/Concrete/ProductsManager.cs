@@ -1,6 +1,7 @@
 ﻿using PlusStokTakip.BusinessLayer.Abstract;
 using PlusStokTakip.DataAccessLayer.Abstract;
 using PlusStokTakip.EntityLayer.EntityModel;
+using System;
 using System.Collections.Generic;
 
 namespace PlusStokTakip.BusinessLayer.Concrete
@@ -27,6 +28,11 @@ namespace PlusStokTakip.BusinessLayer.Concrete
         public Products TGetById(int id)
         {
             return _productsDal.GetById(id);
+        }
+
+        public Products TGetById(int? productID)
+        {
+            throw new NotImplementedException();
         }
 
         public void TInsert(Products entity)

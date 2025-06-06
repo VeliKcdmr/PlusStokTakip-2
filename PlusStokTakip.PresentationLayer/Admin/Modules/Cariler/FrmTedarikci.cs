@@ -157,7 +157,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Cariler
                 txtYTelefon.Text = supplier.Phone;
                 txtEposta.Text = supplier.Email;
                 txtAdres.Text = supplier.Address;
-                tsDurum.IsOn = supplier.IsActive;
+                tsDurum.IsOn = (bool)supplier.IsActive;
 
                 btnKaydet.Enabled = false;
                 btnGuncelle.Enabled = true;

@@ -20,6 +20,9 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public int Quantity { get; set; }
         public Nullable<System.DateTime> PurchaseDate { get; set; }
         public decimal Cost { get; set; }
+        public Nullable<decimal> TotalCost { get; set; }
+        public bool IsActive { get; set; }
+        public string Description { get; set; }
     
         public virtual Products Products { get; set; }
         public virtual Suppliers Suppliers { get; set; }

@@ -1,8 +1,11 @@
-﻿using PlusStokTakip.PresentationLayer.Admin.Modules.Ayarlar;
+﻿using System.Windows.Forms;
+using PlusStokTakip.PresentationLayer.Admin.Modules.Ayarlar;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Defines;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Urunler;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Cariler;
-using System.Windows.Forms;
+using PlusStokTakip.PresentationLayer.Admin.Modules.Stok;
+using PlusStokTakip.PresentationLayer.Admin.Modules.SatinAlma;
+using PlusStokTakip.PresentationLayer.Admin.Modules.Satis;
 
 namespace PlusStokTakip.PresentationLayer
 {
@@ -18,6 +21,9 @@ namespace PlusStokTakip.PresentationLayer
         FrmDataBase frmDataBase;
         FrmMusteriFirma frmMusteriFirma;
         FrmTedarikci frmTedarikci;
+        FrmStok frmStok;
+        FrmSatinAlma frmSatinAlma;
+        FrmSatis FrmSatis;
         public FrmAdminMain()
         {
             InitializeComponent();
@@ -167,6 +173,48 @@ namespace PlusStokTakip.PresentationLayer
             else
             {
                 frmTedarikci.BringToFront();
+            }
+        }
+
+        private void btnStok_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (frmStok == null || frmStok.IsDisposed)
+            {
+                frmStok = new FrmStok();
+                frmStok.MdiParent = this;
+                frmStok.Show();
+            }
+            else
+            {
+                frmStok.BringToFront();
+            }
+        }
+
+        private void btnSatinAlma_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (frmSatinAlma == null || frmSatinAlma.IsDisposed)
+            {
+                frmSatinAlma = new FrmSatinAlma();
+                frmSatinAlma.MdiParent = this;
+                frmSatinAlma.Show();
+            }
+            else
+            {
+                frmSatinAlma.BringToFront();
+            }
+        }
+
+        private void btnUrunSatis_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (FrmSatis == null || FrmSatis.IsDisposed)
+            {
+                FrmSatis = new FrmSatis();
+                FrmSatis.MdiParent = this;
+                FrmSatis.Show();
+            }
+            else
+            {
+                FrmSatis.BringToFront();
             }
         }
     }

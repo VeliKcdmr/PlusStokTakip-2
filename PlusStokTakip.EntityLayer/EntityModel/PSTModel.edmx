@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PlusStokTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BankTransactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TransactionType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Brands">
           <Key>
             <PropertyRef Name="BrandID" />
@@ -12,6 +24,17 @@
           <Property Name="BrandID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BrandName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CategoryID" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CashRegister">
+          <Key>
+            <PropertyRef Name="CashID" />
+          </Key>
+          <Property Name="CashID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Categories">
@@ -46,6 +69,19 @@
           <Property Name="BrandID" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -57,6 +93,7 @@
           <Property Name="BrandID" Type="int" />
           <Property Name="ModelID" Type="int" />
           <Property Name="ShelfID" Type="int" />
+          <Property Name="Cost" Type="numeric" Precision="18" Scale="2" />
           <Property Name="Price" Type="numeric" Precision="18" Scale="2" />
           <Property Name="StockQuantity" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -72,8 +109,23 @@
           <Property Name="ProductID" Type="int" />
           <Property Name="SupplierID" Type="int" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="PurchaseDate" Type="datetime" />
           <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalCost" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="PurchaseDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Receipts">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ReceiptDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Sales">
           <Key>
@@ -83,8 +135,10 @@
           <Property Name="ProductID" Type="int" />
           <Property Name="CustomerID" Type="int" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="SaleDate" Type="datetime" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalRevenue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SaleDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Shelves">
           <Key>
@@ -103,8 +157,9 @@
           <Property Name="ProductID" Type="int" />
           <Property Name="MovementType" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="MovementDate" Type="datetime" />
+          <Property Name="MovementDate" Type="date" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -117,7 +172,7 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="255" />
           <Property Name="Address" Type="nvarchar" MaxLength="255" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -150,6 +205,30 @@
             </Principal>
             <Dependent Role="Models">
               <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__Custom__60FC61CA">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__Suppli__61F08603">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -213,6 +292,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Receipts__Custom__65C116E7">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Receipts" Type="Self.Receipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Receipts">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sales__CustomerI__0C1BC9F9">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
           <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
@@ -262,12 +353,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PlusStokTakipModelStoreContainer">
+          <EntitySet Name="BankTransactions" EntityType="Self.BankTransactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashRegister" EntityType="Self.CashRegister" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Models" EntityType="Self.Models" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receipts" EntityType="Self.Receipts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shelves" EntityType="Self.Shelves" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockMovements" EntityType="Self.StockMovements" Schema="dbo" store:Type="Tables" />
@@ -280,6 +375,14 @@
           <AssociationSet Name="FK__Models__BrandID__43D61337" Association="Self.FK__Models__BrandID__43D61337">
             <End Role="Brands" EntitySet="Brands" />
             <End Role="Models" EntitySet="Models" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Custom__60FC61CA" Association="Self.FK__Payments__Custom__60FC61CA">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Suppli__61F08603" Association="Self.FK__Payments__Suppli__61F08603">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Payments" EntitySet="Payments" />
           </AssociationSet>
           <AssociationSet Name="FK__Products__Catego__4B7734FF" Association="Self.FK__Products__Catego__4B7734FF">
             <End Role="Categories" EntitySet="Categories" />
@@ -300,6 +403,10 @@
           <AssociationSet Name="FK__Purchases__Suppl__14B10FFA" Association="Self.FK__Purchases__Suppl__14B10FFA">
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Receipts__Custom__65C116E7" Association="Self.FK__Receipts__Custom__65C116E7">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Receipts" EntitySet="Receipts" />
           </AssociationSet>
           <AssociationSet Name="FK__Sales__CustomerI__0C1BC9F9" Association="Self.FK__Sales__CustomerI__0C1BC9F9">
             <End Role="Customers" EntitySet="Customers" />
@@ -380,6 +487,7 @@
           <NavigationProperty Name="Purchases" Relationship="PlusStokTakipModel.FK__Purchases__Produ__13BCEBC1" FromRole="Products" ToRole="Purchases" />
           <NavigationProperty Name="Sales" Relationship="PlusStokTakipModel.FK__Sales__ProductID__0B27A5C0" FromRole="Products" ToRole="Sales" />
           <NavigationProperty Name="StockMovements" Relationship="PlusStokTakipModel.FK__StockMove__Produ__7AF13DF7" FromRole="Products" ToRole="StockMovements" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Shelves">
           <Key>
@@ -507,6 +615,22 @@
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Purchases" EntitySet="Purchases" />
           </AssociationSet>
+          <EntitySet Name="BankTransactions" EntityType="PlusStokTakipModel.BankTransactions" />
+          <EntitySet Name="CashRegister" EntityType="PlusStokTakipModel.CashRegister" />
+          <EntitySet Name="Payments" EntityType="PlusStokTakipModel.Payments" />
+          <EntitySet Name="Receipts" EntityType="PlusStokTakipModel.Receipts" />
+          <AssociationSet Name="FK__Payments__Custom__60FC61CA" Association="PlusStokTakipModel.FK__Payments__Custom__60FC61CA">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Receipts__Custom__65C116E7" Association="PlusStokTakipModel.FK__Receipts__Custom__65C116E7">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Receipts" EntitySet="Receipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Suppli__61F08603" Association="PlusStokTakipModel.FK__Payments__Suppli__61F08603">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Products_Brands">
           <End Type="PlusStokTakipModel.Brands" Role="Brands" Multiplicity="0..1" />
@@ -542,6 +666,9 @@
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Products" Relationship="PlusStokTakipModel.FK__Purchases__Produ__13BCEBC1" FromRole="Purchases" ToRole="Products" />
           <NavigationProperty Name="Suppliers" Relationship="PlusStokTakipModel.FK__Purchases__Suppl__14B10FFA" FromRole="Purchases" ToRole="Suppliers" />
+          <Property Name="TotalCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sales">
           <Key>
@@ -555,6 +682,8 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Products" Relationship="PlusStokTakipModel.FK__Sales__ProductID__0B27A5C0" FromRole="Sales" ToRole="Products" />
           <NavigationProperty Name="Customers" Relationship="PlusStokTakipModel.FK__Sales__CustomerI__0C1BC9F9" FromRole="Sales" ToRole="Customers" />
+          <Property Name="TotalRevenue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="StockMovements">
           <Key>
@@ -564,9 +693,10 @@
           <Property Name="ProductID" Type="Int32" />
           <Property Name="MovementType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="MovementDate" Type="DateTime" Precision="3" />
+          <Property Name="MovementDate" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="PlusStokTakipModel.FK__StockMove__Produ__7AF13DF7" FromRole="StockMovements" ToRole="Products" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK__Purchases__Produ__13BCEBC1">
           <End Type="PlusStokTakipModel.Products" Role="Products" Multiplicity="0..1" />
@@ -618,6 +748,8 @@
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sales" Relationship="PlusStokTakipModel.FK__Sales__CustomerI__0C1BC9F9" FromRole="Customers" ToRole="Sales" />
+          <NavigationProperty Name="Payments" Relationship="PlusStokTakipModel.FK__Payments__Custom__60FC61CA" FromRole="Customers" ToRole="Payments" />
+          <NavigationProperty Name="Receipts" Relationship="PlusStokTakipModel.FK__Receipts__Custom__65C116E7" FromRole="Customers" ToRole="Receipts" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -631,7 +763,8 @@
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Purchases" Relationship="PlusStokTakipModel.FK__Purchases__Suppl__14B10FFA" FromRole="Suppliers" ToRole="Purchases" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Payments" Relationship="PlusStokTakipModel.FK__Payments__Suppli__61F08603" FromRole="Suppliers" ToRole="Payments" />
         </EntityType>
         <Association Name="FK__Sales__CustomerI__0C1BC9F9">
           <End Type="PlusStokTakipModel.Customers" Role="Customers" Multiplicity="0..1" />
@@ -653,6 +786,93 @@
               <PropertyRef Name="SupplierID" />
             </Principal>
             <Dependent Role="Purchases">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BankTransactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CashRegister">
+          <Key>
+            <PropertyRef Name="CashID" />
+          </Key>
+          <Property Name="CashID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentMethod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="PlusStokTakipModel.FK__Payments__Custom__60FC61CA" FromRole="Payments" ToRole="Customers" />
+          <NavigationProperty Name="Suppliers" Relationship="PlusStokTakipModel.FK__Payments__Suppli__61F08603" FromRole="Payments" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="Receipts">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentMethod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="PlusStokTakipModel.FK__Receipts__Custom__65C116E7" FromRole="Receipts" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Payments__Custom__60FC61CA">
+          <End Type="PlusStokTakipModel.Customers" Role="Customers" Multiplicity="0..1" />
+          <End Type="PlusStokTakipModel.Payments" Role="Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Receipts__Custom__65C116E7">
+          <End Type="PlusStokTakipModel.Customers" Role="Customers" Multiplicity="1" />
+          <End Type="PlusStokTakipModel.Receipts" Role="Receipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Receipts">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__Suppli__61F08603">
+          <End Type="PlusStokTakipModel.Suppliers" Role="Suppliers" Multiplicity="0..1" />
+          <End Type="PlusStokTakipModel.Payments" Role="Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="Payments">
               <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
@@ -696,6 +916,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="PlusStokTakipModel.Products">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="ImageData" ColumnName="ImageData" />
                 <ScalarProperty Name="UDate" ColumnName="UDate" />
                 <ScalarProperty Name="CDate" ColumnName="CDate" />
@@ -736,6 +957,9 @@
           <EntitySetMapping Name="Purchases">
             <EntityTypeMapping TypeName="PlusStokTakipModel.Purchases">
               <MappingFragment StoreEntitySet="Purchases">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -748,6 +972,8 @@
           <EntitySetMapping Name="Sales">
             <EntityTypeMapping TypeName="PlusStokTakipModel.Sales">
               <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -760,6 +986,7 @@
           <EntitySetMapping Name="StockMovements">
             <EntityTypeMapping TypeName="PlusStokTakipModel.StockMovements">
               <MappingFragment StoreEntitySet="StockMovements">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="MovementDate" ColumnName="MovementDate" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -795,6 +1022,58 @@
                 <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
                 <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankTransactions">
+            <EntityTypeMapping TypeName="PlusStokTakipModel.BankTransactions">
+              <MappingFragment StoreEntitySet="BankTransactions">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashRegister">
+            <EntityTypeMapping TypeName="PlusStokTakipModel.CashRegister">
+              <MappingFragment StoreEntitySet="CashRegister">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="CashID" ColumnName="CashID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="PlusStokTakipModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receipts">
+            <EntityTypeMapping TypeName="PlusStokTakipModel.Receipts">
+              <MappingFragment StoreEntitySet="Receipts">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

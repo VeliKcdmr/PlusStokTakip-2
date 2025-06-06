@@ -53,7 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityModel\BankTransactions.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Brands.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CashRegister.cs">
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Categories.cs">
@@ -63,6 +69,9 @@
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Models.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Payments.cs">
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Products.cs">
@@ -84,6 +93,9 @@
       <DependentUpon>PSTModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Purchases.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Receipts.cs">
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Sales.cs">

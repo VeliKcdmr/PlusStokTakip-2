@@ -20,6 +20,7 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public Nullable<int> Quantity { get; set; }
         public Nullable<System.DateTime> MovementDate { get; set; }
         public string Description { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual Products Products { get; set; }
     }

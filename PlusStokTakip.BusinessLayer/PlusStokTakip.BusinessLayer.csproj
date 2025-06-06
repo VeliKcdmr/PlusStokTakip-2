@@ -51,21 +51,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBankTransactionsService.cs" />
     <Compile Include="Abstract\IBrandsService.cs" />
+    <Compile Include="Abstract\ICashRegisterService.cs" />
     <Compile Include="Abstract\ICategoriesService.cs" />
     <Compile Include="Abstract\ICustomersServices.cs" />
     <Compile Include="Abstract\IGenericService.cs" />
     <Compile Include="Abstract\IModelsService.cs" />
+    <Compile Include="Abstract\IPaymentsService.cs" />
     <Compile Include="Abstract\IProductsService.cs" />
+    <Compile Include="Abstract\IPurchasesService.cs" />
+    <Compile Include="Abstract\IReceiptsService.cs" />
+    <Compile Include="Abstract\ISalesService.cs" />
     <Compile Include="Abstract\IShelvesService.cs" />
+    <Compile Include="Abstract\IStockMovementsService.cs" />
     <Compile Include="Abstract\ISuppliersService.cs" />
     <Compile Include="Abstract\IUsersService.cs" />
+    <Compile Include="Concrete\BankTransactionsManager.cs" />
     <Compile Include="Concrete\BrandsManager.cs" />
+    <Compile Include="Concrete\CashRegisterManager.cs" />
     <Compile Include="Concrete\CategoriesManager.cs" />
     <Compile Include="Concrete\CustomersManager.cs" />
     <Compile Include="Concrete\ModelsManager.cs" />
+    <Compile Include="Concrete\PaymentsManager.cs" />
     <Compile Include="Concrete\ProductsManager.cs" />
+    <Compile Include="Concrete\PurchasesManager.cs" />
+    <Compile Include="Concrete\ReceiptsManager.cs" />
+    <Compile Include="Concrete\SalesManager.cs" />
     <Compile Include="Concrete\ShelvesManager.cs" />
+    <Compile Include="Concrete\StockMovementsManager.cs" />
     <Compile Include="Concrete\SuppliersManager.cs" />
     <Compile Include="Concrete\UsersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

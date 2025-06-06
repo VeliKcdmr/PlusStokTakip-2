@@ -35,6 +35,7 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public System.DateTime CDate { get; set; }
         public Nullable<System.DateTime> UDate { get; set; }
         public byte[] ImageData { get; set; }
+        public Nullable<decimal> Cost { get; set; }
     
         public virtual Categories Categories { get; set; }
         public virtual Models Models { get; set; }

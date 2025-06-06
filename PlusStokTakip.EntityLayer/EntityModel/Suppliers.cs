@@ -18,6 +18,7 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public Suppliers()
         {
             this.Purchases = new HashSet<Purchases>();
+            this.Payments = new HashSet<Payments>();
         }
     
         public int SupplierID { get; set; }
@@ -27,9 +28,11 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchases> Purchases { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payments> Payments { get; set; }
     }
 }

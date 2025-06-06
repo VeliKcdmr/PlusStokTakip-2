@@ -24,6 +24,11 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
         {
             InitializeComponent();
         }
+        private void FrmUrun_Load(object sender, EventArgs e)
+        {
+            CleanForm();
+        }
+
         private void CustomizeLookupEditAppearance()
         {
             var lookupEdits = new[] { cmbKategori, cmbMarka, cmbModel, cmbRaf, cmbYil };
@@ -60,7 +65,8 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                         ModelName = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelName : "Bilinmiyor",
                         ModelYear = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelYear : (int?)null,
                         p.StockQuantity,
-                        Price = string.Format("{0:#,##0.00} ₺", p.Price),
+                        Cost = string.Format("{0:#,##0.00} ₺", p.Cost),
+                        Price = string.Format("{0:#,##0.00} ₺", p.Price),                        
                         IsActive = p.IsActive ? "Aktif" : "Pasif"
                     }).ToList();
 
@@ -90,7 +96,8 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 layoutView1.Columns["ModelName"].Caption = "Model Adı";
                 layoutView1.Columns["ModelYear"].Caption = "Model Yılı";
                 layoutView1.Columns["StockQuantity"].Caption = "Stok Miktarı";
-                layoutView1.Columns["Price"].Caption = "Fiyat";
+                layoutView1.Columns["Price"].Caption = "Satış Fiyat";
+                layoutView1.Columns["Cost"].Caption = "Alış Fiyatı";
                 layoutView1.Columns["IsActive"].Caption = "Durum";
             }
             catch (Exception ex)
@@ -153,7 +160,8 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             txtAd.Text = string.Empty;
             txtBarkod.Text = string.Empty;
             spinAdet.Text = string.Empty;
-            txtFiyat.Text = string.Empty;
+            txtAFiyat.Text = string.Empty;
+            txtSFiyat.Text = string.Empty;
 
             // Reset buttons
             btnKaydet.Enabled = true;
@@ -167,11 +175,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             layoutView1.RefreshData();
             gridControl1.RefreshDataSource();
         }
-        private void FrmUrun_Load(object sender, EventArgs e)
-        {
-            CleanForm();
-            this.layoutView1.CustomUnboundColumnData += layoutView1_CustomUnboundColumnData;
-        }
+      
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
@@ -186,7 +190,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtAFiyat, "Fiyat boş bırakılamaz!")) return;
 
                 var selectedCategoryId = Convert.ToInt32(cmbKategori.EditValue);
                 var selectedBrandId = Convert.ToInt32(cmbMarka.EditValue);
@@ -194,7 +198,8 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 var selectedYear = Convert.ToInt32(cmbYil.EditValue);
                 var selectedShelfId = Convert.ToInt32(cmbRaf.EditValue);
                 var stockQuantity = Convert.ToInt32(spinAdet.Value);
-                var price = decimal.TryParse(txtFiyat.Text, out decimal parsedPrice) ? parsedPrice : 0;
+                var price = decimal.TryParse(txtAFiyat.Text, out decimal parsedPrice) ? parsedPrice : 0;
+                var cost = decimal.TryParse(txtSFiyat.Text, out decimal parsedCost) ? parsedCost : 0;
 
                 // **ModelName ve ModelYear eşleşmesine göre modeli al**
                 var selectedModel = _modelsManager.TGetAll()
@@ -217,6 +222,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                     ShelfID = selectedShelfId,
                     StockQuantity = stockQuantity,
                     Price = price,
+                    Cost=cost,
                     ImageData = selectedImageBytes, // **Resim verisini ekle**
                     IsActive = true,
                     CDate = DateTime.Now.Date
@@ -249,7 +255,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtAFiyat, "Fiyat boş bırakılamaz!")) return;
                 var productId = Convert.ToInt32(layoutView1.GetFocusedRowCellValue("ProductID"));
                 var productToUpdate = _productsManager.TGetById(productId);
 
@@ -261,7 +267,8 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 productToUpdate.ProductName = txtAd.Text;
                 productToUpdate.Barcode = txtBarkod.Text;
                 productToUpdate.StockQuantity = (int)spinAdet.Value;
-                productToUpdate.Price = decimal.Parse(txtFiyat.Text);
+                productToUpdate.Price = decimal.Parse(txtAFiyat.Text);
+                productToUpdate.Cost = decimal.Parse(txtSFiyat.Text);
                 productToUpdate.CategoryID = (int)cmbKategori.EditValue;
                 productToUpdate.BrandID = (int)cmbMarka.EditValue;
                 productToUpdate.ModelID = _modelsManager.TGetAll()
@@ -299,7 +306,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtFiyat, "Fiyat boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtAFiyat, "Fiyat boş bırakılamaz!")) return;
                 var productId = (int)layoutView1.GetFocusedRowCellValue("ProductID");
                 var productToDelete = _productsManager.TGetById(productId);
 
@@ -342,7 +349,8 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 txtAd.Text = selectedProduct.ProductName;
                 txtBarkod.Text = selectedProduct.Barcode;
                 spinAdet.Value = selectedProduct.StockQuantity.Value;
-                txtFiyat.Text = selectedProduct.Price.ToString();
+                txtAFiyat.Text = selectedProduct.Cost.ToString();
+                txtSFiyat.Text = selectedProduct.Price.ToString();
                 cmbKategori.EditValue = selectedProduct.CategoryID;
                 cmbMarka.EditValue = selectedProduct.BrandID;
                 cmbModel.EditValue = selectedProduct.Models.ModelName;
@@ -529,25 +537,5 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             }
         }
 
-        private void layoutView1_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
-        {
-            if (e.Column.FieldName == "StockQuantity")
-            {
-                int stockQuantity = Convert.ToInt32(e.Value);
-                string stockText = $"{stockQuantity:N0}"; // **Formatlı stok miktarı**
-                e.DisplayText = stockText;
-            }
-
-        }
-
-        private void layoutView1_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
-        {
-            if (e.Column.FieldName == "StockQuantity")
-            {
-                int stockQuantity = Convert.ToInt32(layoutView1.GetRowCellValue(e.ListSourceRowIndex, "StockQuantity"));
-                int stockStatus = stockQuantity == 0 ? 0 : (stockQuantity >= 1 && stockQuantity <= 9) ? 2 : 1;
-                e.Value = stockStatus;
-            }
-        }
     }
 }
