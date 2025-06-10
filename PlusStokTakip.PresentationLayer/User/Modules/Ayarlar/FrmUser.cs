@@ -1,5 +1,7 @@
 ﻿using PlusStokTakip.BusinessLayer.Concrete;
 using PlusStokTakip.DataAccessLayer.EntityFramework;
+using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PlusStokTakip.PresentationLayer.User.Modules.Ayarlar
@@ -8,29 +10,42 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Ayarlar
     {
         private readonly UsersManager _usersManager = new UsersManager(new EfUsersDal());
         public int _userId;
+
         public FrmUser()
         {
             InitializeComponent();
         }
 
-        private void FrmUser_Load(object sender, System.EventArgs e)
+        private void FrmUser_Load(object sender, EventArgs e)
         {
-            LoadUserData();
+            var user = _usersManager.TGetAll().FirstOrDefault(x => x.UserID ==_userId);
+            if (user != null)
+            {
+                txtUserName.Text = user.UserName;
+                txtPassword.Text = user.Password;
+            }
         }
-        private void LoadUserData()
+
+        private void btnKaydet_Click(object sender, EventArgs e)
         {
-            var user = _usersManager.TGetById(_userId);
-            txtUserName.Text = user.UserName;
-            txtRol.Text = user.Role;
-            txtPassword.Text = user.Password;
-        }
-        private void btnKaydet_Click(object sender, System.EventArgs e)
-        {
-            var user = _usersManager.TGetById(_userId);
-            user.Password = txtPassword.Text;
-            _usersManager.TUpdate(user);
-            MessageBox.Show("Kullanıcı şifresi güncellendi.");
-            LoadUserData();
+            try
+            {
+                var user = _usersManager.TGetById(_userId);
+                if (user != null)
+                {                    
+                    user.Password = txtPassword.Text;
+                    _usersManager.TUpdate(user);
+                    MessageBox.Show("Kullanıcı bilgileri güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Kullanıcı bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

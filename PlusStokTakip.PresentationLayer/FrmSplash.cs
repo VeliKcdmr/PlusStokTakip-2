@@ -1,16 +1,24 @@
 ﻿using DevExpress.XtraSplashScreen;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using PlusStokTakip.BusinessLayer.Concrete;
 using PlusStokTakip.DataAccessLayer.EntityFramework;
-using System;
-using System.Windows.Forms;
 
 namespace PlusStokTakip.PresentationLayer
 {
     public partial class FrmSplash : SplashScreen
     {
-        private Timer splashTimer; // Timer nesnesi
-        ProductsManager _productsManager = new ProductsManager(new EfProductsDal());
-        UsersManager _usersManager = new UsersManager(new EfUsersDal());
+        private readonly ProductsManager _productsManager = new ProductsManager(new EfProductsDal());
+        private readonly PaymentsManager _paymentsManager = new PaymentsManager(new EfPaymentsDal());
+        private readonly SalesManager _salesManager = new SalesManager(new EfSalesDal());
+        private readonly CategoriesManager _categoriesManager = new CategoriesManager(new EfCategoriesDal());
+        private readonly BrandsManager _brandsManager = new BrandsManager(new EfBrandsDal());
+        private readonly SuppliersManager _suppliersManager = new SuppliersManager(new EfSuppliersDal());
+        private readonly CustomersManager _customersManager = new CustomersManager(new EfCustomersDal());
+        private readonly ModelsManager _modelsManager = new ModelsManager(new EfModelsDal());
+        private readonly UsersManager _usersManager = new UsersManager(new EfUsersDal());
 
         public FrmSplash()
         {
@@ -18,83 +26,68 @@ namespace PlusStokTakip.PresentationLayer
             this.labelCopyright.Text = $"Copyright © 2024-{DateTime.Now.Year}";
         }
 
-        #region Overrides
-
-        public override void ProcessCommand(Enum cmd, object arg)
-        {
-            base.ProcessCommand(cmd, arg);
-        }
-
-        #endregion
-
-        private void FrmSplash_Load(object sender, EventArgs e)
+        private async void FrmSplash_Load(object sender, EventArgs e)
         {
             try
             {
-                // Splash ekranının 5 saniye boyunca görünmesini sağla
-                splashTimer = new Timer();
-                splashTimer.Interval = 5000; // 5 saniye
-                splashTimer.Tick += SplashTimer_Tick; // Tick olayını bağla
-                splashTimer.Start(); // Timer'ı başlat
+                labelStatus.Text = "Yükleme başlatılıyor...";
+                Application.DoEvents();
 
-                // Kullanıcı ve ürün listelerini al
                 var usersList = _usersManager.TGetAll();
                 var productsList = _productsManager.TGetAll();
+                var paymentsList = _paymentsManager.TGetAll();
+                var suppliersList = _suppliersManager.TGetAll();
+                var customersList = _customersManager.TGetAll();
 
-                // Toplam adım sayısı
-                int totalSteps = usersList.Count + productsList.Count;
+
+                int totalSteps = usersList.Count + productsList.Count + paymentsList.Count +
+                                 suppliersList.Count + customersList.Count;
                 int currentStep = 0;
 
-                // Kullanıcı listesini yükle ve ilerleme yüzdesini yazdır
-                labelStatus.Text = "Kullanıcı listesi yükleniyor...";
-                foreach (var user in usersList)
-                {
-                    currentStep++;
-                    UpdateProgress(currentStep, totalSteps);
-                    Application.DoEvents(); // UI güncellemesi için
-                    System.Threading.Thread.Sleep(100); // Simülasyon için kısa bir bekleme
-                }
+                currentStep = await LoadDataAsync(usersList, "Kullanıcı listesi yükleniyor...", currentStep, totalSteps);
+                currentStep = await LoadDataAsync(productsList, "Ürün listesi yükleniyor...", currentStep, totalSteps);
+                currentStep = await LoadDataAsync(paymentsList, "Ödeme listesi yükleniyor...", currentStep, totalSteps);
+                currentStep = await LoadDataAsync(suppliersList, "Tedarikçi listesi yükleniyor...", currentStep, totalSteps);
+                currentStep = await LoadDataAsync(customersList, "Müşteri listesi yükleniyor...", currentStep, totalSteps);
+                labelStatus.Text = "Yükleme tamamlandı, uygulama başlatılıyor...";
+                UpdateProgress(totalSteps, totalSteps);
+                await Task.Delay(1000); // 1 saniye beklet
 
-                // Ürün listesini yükle ve ilerleme yüzdesini yazdır
-                labelStatus.Text = "Ürün listesi yükleniyor...";
-                foreach (var product in productsList)
-                {
-                    currentStep++;
-                    UpdateProgress(currentStep, totalSteps);
-                    Application.DoEvents(); // UI güncellemesi için
-                    System.Threading.Thread.Sleep(100); // Simülasyon için kısa bir bekleme
-                }
-
-                // Yükleme tamamlandı
-                UpdateProgress(totalSteps, totalSteps); // %100 için güncelle
-
-                // Yükleme tamamlandıktan sonra biraz bekleyin
-                System.Threading.Thread.Sleep(1000); // 1 saniye bekle
+                OpenLoginScreen();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Yükleme sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Hide(); // Hata durumunda Splash ekranını kapat
+                this.Close();
             }
         }
 
-        private void SplashTimer_Tick(object sender, EventArgs e)
+        private async Task<int> LoadDataAsync<T>(IEnumerable<T> list, string message, int currentStep, int totalSteps)
         {
-            splashTimer.Stop(); // Timer'ı durdur
-            splashTimer.Dispose(); // Timer'ı bellekten temizle
-
-            // Login ekranını aç ve Splash ekranını gizle
-            using (FrmLogin frmLogin = new FrmLogin())
+            labelStatus.Text = message;
+            foreach (var item in list)
             {
-                this.Hide(); // Splash ekranını kapat
-                frmLogin.ShowDialog(); // Login ekranını modal olarak aç
+                currentStep++; // Artırımı doğrudan burada yapıyoruz
+                UpdateProgress(currentStep, totalSteps);
+                Application.DoEvents();
+                await Task.Delay(100); // UI güncellenirken donmayı önlemek için asenkron bekleme
             }
+            return currentStep; // Güncellenmiş değeri geri döndür
         }
 
         private void UpdateProgress(int currentStep, int totalSteps)
         {
             int percentage = (currentStep * 100) / totalSteps;
             labelStatus.Text = $"Yükleniyor: {percentage}%";
+        }
+
+        private void OpenLoginScreen()
+        {
+            this.Hide();
+            using (FrmLogin frmLogin = new FrmLogin())
+            {
+                frmLogin.ShowDialog();
+            }
         }
     }
 }

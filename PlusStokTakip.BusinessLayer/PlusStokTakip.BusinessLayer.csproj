@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBankAccountsService.cs" />
     <Compile Include="Abstract\IBankTransactionsService.cs" />
     <Compile Include="Abstract\IBrandsService.cs" />
     <Compile Include="Abstract\ICashRegisterService.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Abstract\IStockMovementsService.cs" />
     <Compile Include="Abstract\ISuppliersService.cs" />
     <Compile Include="Abstract\IUsersService.cs" />
+    <Compile Include="Concrete\BankAccountsManager.cs" />
     <Compile Include="Concrete\BankTransactionsManager.cs" />
     <Compile Include="Concrete\BrandsManager.cs" />
     <Compile Include="Concrete\CashRegisterManager.cs" />

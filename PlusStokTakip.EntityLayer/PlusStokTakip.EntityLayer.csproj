@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityModel\BankAccounts.cs">
+      <DependentUpon>PSTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\BankTransactions.cs">
       <DependentUpon>PSTModel.tt</DependentUpon>
     </Compile>

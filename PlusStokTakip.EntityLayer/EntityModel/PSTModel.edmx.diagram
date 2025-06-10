@@ -27,13 +27,15 @@
         <EntityTypeShape EntityType="PlusStokTakipModel.Suppliers" Width="1.5" PointX="5.375" PointY="5.5" />
         <AssociationConnector Association="PlusStokTakipModel.FK__Sales__CustomerI__0C1BC9F9" />
         <AssociationConnector Association="PlusStokTakipModel.FK__Purchases__Suppl__14B10FFA" />
-        <EntityTypeShape EntityType="PlusStokTakipModel.BankTransactions" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="PlusStokTakipModel.CashRegister" Width="1.5" PointX="2.75" PointY="7.75" />
         <EntityTypeShape EntityType="PlusStokTakipModel.Payments" Width="1.5" PointX="13.5" PointY="5.375" />
         <EntityTypeShape EntityType="PlusStokTakipModel.Receipts" Width="1.5" PointX="11.625" PointY="3.875" />
         <AssociationConnector Association="PlusStokTakipModel.FK__Payments__Custom__60FC61CA" />
         <AssociationConnector Association="PlusStokTakipModel.FK__Receipts__Custom__65C116E7" />
         <AssociationConnector Association="PlusStokTakipModel.FK__Payments__Suppli__61F08603" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.BankAccounts" Width="1.5" PointX="5.125" PointY="8.875" />
+        <EntityTypeShape EntityType="PlusStokTakipModel.BankTransactions" Width="1.5" PointX="7.375" PointY="8.875" />
+        <AssociationConnector Association="PlusStokTakipModel.FK_BankTransactions_BankAccounts" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

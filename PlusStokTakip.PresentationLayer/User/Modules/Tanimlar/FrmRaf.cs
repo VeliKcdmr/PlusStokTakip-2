@@ -8,7 +8,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
+namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
 {
     public partial class FrmRaf : DevExpress.XtraEditors.XtraForm
     {
@@ -24,12 +24,14 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
                 s.ShelfID,
                 s.ShelfName,
                 s.ShelfDescription,
+                IsActive = s.IsActive ? "Aktif" : "Pasif"
             });
             gridControl1.DataSource = shelvesList; // GridControl'e bağlar
             gridView1.Columns["ShelfName"].Caption = "Raf Adı"; // Sütun başlıklarını değiştir
-            gridView1.Columns["ShelfDescription"].Caption = "Açıklama";            
+            gridView1.Columns["ShelfDescription"].Caption = "Açıklama";
+            gridView1.Columns["IsActive"].Caption = "Durum";
             gridView1.Columns["ShelfID"].Caption = "Raf ID";
-            gridView1.Columns["ShelfID"].Visible = false; // "Id" sütununu gizle
+            // gridView1.Columns["ShelfID"].Visible = false; // "Id" sütununu gizle
         }
         private void FrmRaf_Load(object sender, EventArgs e)
         {
@@ -38,11 +40,10 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         private void CleanFields()
         {
             txtAd.Text = string.Empty;
-            txtAciklama.Text = string.Empty;
+            txtAciklama.Text = string.Empty;           
             btnKaydet.Enabled = true;
             btnGuncelle.Enabled = false;
-            btnSil.Enabled = false;
-            btnRafYazdir.Enabled = false;
+            btnSil.Enabled = false;            
         }
         private void freshForm()
         {
@@ -68,9 +69,8 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
                 {
                     ShelfName = txtAd.Text.Trim(),
                     ShelfDescription = txtAciklama.Text.Trim(),
-                    IsActive = true // Varsayılan olarak aktif
+                    IsActive = true // Yeni raf aktif olarak işaretlenir
                 };
-
                 // Kaydetme işlemi
                 _shelvesManager.TInsert(newShelf);
                 MessageBox.Show("Raf başarıyla kaydedildi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -88,7 +88,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Raf adı boş bırakılamaz!")) return;
                 if (gridView1.FocusedRowHandle < 0)
                 {
                     MessageBox.Show("Lütfen bir satır seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -110,10 +109,8 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
                     // Kullanıcı girdilerini raf objesine uygula
                     selectedShelf.ShelfName = txtAd.Text.Trim();
                     selectedShelf.ShelfDescription = txtAciklama.Text.Trim();
-
                     // Rafı güncelle
                     _shelvesManager.TUpdate(selectedShelf);
-
                     MessageBox.Show("Raf başarıyla güncellendi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     freshForm();
                 }
@@ -132,7 +129,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Raf adı boş bırakılamaz!")) return;
                 if (gridView1.FocusedRowHandle < 0)
                 {
                     MessageBox.Show("Lütfen bir satır seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -185,80 +181,10 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
             }
 
             txtAd.Text = shelf.ShelfName;
-            txtAciklama.Text = shelf.ShelfDescription;          
-
+            txtAciklama.Text = shelf.ShelfDescription;
             btnKaydet.Enabled = false;
             btnGuncelle.Enabled = true;
-            btnSil.Enabled = true;
-            btnRafYazdir.Enabled = true;
-        }
-        private void btnRafYazdir_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // PrintDocument oluştur
-                PrintDocument printDocument = new PrintDocument();
-                printDocument.PrintPage += printDocument_PrintPage; // Yazdırma olayını bağla
-
-                // Yazıcı seçim penceresi oluştur
-                PrintDialog printDialog = new PrintDialog
-                {
-                    Document = printDocument // PrintDocument bağlanır
-                };
-
-                // Yazıcı seçim penceresini göster
-                if (printDialog.ShowDialog() == DialogResult.OK)
-                {
-                    // Seçilen yazıcı ayarlarını uygula
-                    printDocument.PrinterSettings = printDialog.PrinterSettings;
-
-                    // Yazdırma işlemini başlat
-                    printDocument.Print();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Yazdırma sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
-        private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            // Yazdırılacak bilgiler
-            string shelfName = txtAd.Text.Trim();
-            string shelfDescription = txtAciklama.Text.Trim();
-
-            // Font tanımlamaları
-            Font boldFont = new Font("Arial", 14, FontStyle.Bold); // Raf adı için kalın font
-            Font regularFont = new Font("Arial", 10, FontStyle.Regular); // Açıklama için küçük ve normal font
-
-            // Pozisyon tanımları
-            float x = 100;
-            float y = 100;
-
-            // Yazdırma işlemi
-            e.Graphics.DrawString($"{shelfName}", boldFont, Brushes.Black, x, y); // Raf adı kalın yazdırılır
-            e.Graphics.DrawString($"{shelfDescription}", regularFont, Brushes.Black, x, y + 30); // Açıklama küçük yazdırılır
-
-        }
-
-        private void txtAd_EditValueChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtAd.Text))
-            {
-
-                btnGuncelle.Enabled = false;
-                btnSil.Enabled = false;
-            }
-            else
-            {
-
-                if (btnKaydet.Enabled == false)
-                {
-                    btnGuncelle.Enabled = gridView1.FocusedRowHandle >= 0;
-                    btnSil.Enabled = gridView1.FocusedRowHandle >= 0;
-                }
-            }
-        }
+            btnSil.Enabled = true;           
+        }        
     }
 }

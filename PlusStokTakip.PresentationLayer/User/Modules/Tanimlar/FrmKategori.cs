@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
+namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
 {
     public partial class FrmKategori : DevExpress.XtraEditors.XtraForm
     {
@@ -27,21 +27,21 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         // Kategori listesini yükler
         private void LoadCategories()
         {
-            var categoriesList = _categoryManager.TGetAll().Where(c => c.IsActive == true).OrderBy(c=>c.CategoryName).Select(c => new
+            var categoriesList = _categoryManager.TGetAll().Where(c => c.IsActive == true).Select(c => new
             {
                 c.CategoryID,
-                c.CategoryName
+                c.CategoryName               
             }).ToList();
 
             gridControl1.DataSource = categoriesList;
-            gridView1.Columns["CategoryID"].Visible = false; // Kategori ID'yi gizle
-            gridView1.Columns["CategoryName"].Caption = "Kategori Adı";
+            gridView1.Columns["CategoryID"].Caption = "Kategori ID";
+            gridView1.Columns["CategoryName"].Caption = "Kategori Adı";            
         }
 
         // Alanları temizler
         private void CleanFields()
         {
-            txtAd.Text = string.Empty;
+            txtAd.Text = string.Empty;            
             btnKaydet.Enabled = true;
             btnGuncelle.Enabled = false;
             btnSil.Enabled = false;
@@ -70,7 +70,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
 
                 Categories newCategory = new Categories
                 {
-                    CategoryName = txtAd.Text.Trim(),
+                    CategoryName = txtAd.Text.Trim(),                    
                     IsActive = true // Varsayılan olarak aktif
                 };
 
@@ -89,7 +89,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Kategori adı boş bırakılamaz!")) return;
                 var existingCategory = _categoryManager.TGetAll()
                     .FirstOrDefault(c => c.CategoryName.Equals(txtAd.Text.Trim(), StringComparison.OrdinalIgnoreCase) && c.IsActive);
                 if (existingCategory != null)
@@ -109,7 +108,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
 
                 if (selectedCategory != null)
                 {
-                    selectedCategory.CategoryName = txtAd.Text.Trim();
+                    selectedCategory.CategoryName = txtAd.Text.Trim();                    
 
                     _categoryManager.TUpdate(selectedCategory);
                     MessageBox.Show("Kategori başarıyla güncellendi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -131,7 +130,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Kategori adı boş bırakılamaz!")) { FreshForm(); return; }
                 if (gridView1.FocusedRowHandle < 0)
                 {
                     MessageBox.Show("Lütfen bir satır seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -146,7 +144,8 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
 
                     if (selectedCategory != null)
                     {
-                        selectedCategory.IsActive = false; // Kategoriyi pasif yap
+                        // Kategoriyi pasif yaparak silme işlemi gerçekleştiriliyor
+                        selectedCategory.IsActive = false; // Silme işlemi yerine pasif yapılıyor
                         _categoryManager.TUpdate(selectedCategory);
                         MessageBox.Show("Kategori başarıyla silindi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         FreshForm();
@@ -177,7 +176,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
 
             if (category != null)
             {
-                txtAd.Text = category.CategoryName;
+                txtAd.Text = category.CategoryName;                
 
                 btnKaydet.Enabled = false;
                 btnGuncelle.Enabled = true;
@@ -186,26 +185,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
             else
             {
                 MessageBox.Show("Seçilen kategori bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void txtAd_EditValueChanged(object sender, EventArgs e)
-        {
-            // Kategori adı alanı değiştiğinde butonları güncelle
-            if (string.IsNullOrWhiteSpace(txtAd.Text))
-            {
-                
-                btnGuncelle.Enabled = false;
-                btnSil.Enabled = false;
-            }
-            else
-            {
-
-                if (btnKaydet.Enabled == false)
-                {
-                    btnGuncelle.Enabled = gridView1.FocusedRowHandle >= 0;
-                    btnSil.Enabled = gridView1.FocusedRowHandle >= 0;
-                }
             }
         }
     }

@@ -36,6 +36,7 @@
             this.btnGuncelle = new DevExpress.XtraEditors.SimpleButton();
             this.btnKaydet = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.txtMiktar = new DevExpress.XtraEditors.TextEdit();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.lkpTedarikci = new DevExpress.XtraEditors.LookUpEdit();
@@ -48,13 +49,12 @@
             this.memoAciklama = new DevExpress.XtraEditors.MemoEdit();
             this.dateOdemeTarihi = new DevExpress.XtraEditors.DateEdit();
             this.lkpMusteri = new DevExpress.XtraEditors.LookUpEdit();
+            this.cmbOdemeYontemi = new DevExpress.XtraEditors.ComboBoxEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.cmbOdemeYontemi = new DevExpress.XtraEditors.ComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
@@ -68,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateOdemeTarihi.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateOdemeTarihi.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lkpMusteri.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbOdemeYontemi.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -75,7 +76,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbOdemeYontemi.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl3
@@ -167,6 +167,17 @@
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(340, 244);
             this.groupControl1.TabIndex = 0;
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.labelControl4.Appearance.Options.UseFont = true;
+            this.labelControl4.Location = new System.Drawing.Point(21, 108);
+            this.labelControl4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(63, 13);
+            this.labelControl4.TabIndex = 21;
+            this.labelControl4.Text = "Ödeme Türü:";
             // 
             // txtMiktar
             // 
@@ -330,6 +341,26 @@
             this.lkpMusteri.Size = new System.Drawing.Size(232, 20);
             this.lkpMusteri.TabIndex = 13;
             // 
+            // cmbOdemeYontemi
+            // 
+            this.cmbOdemeYontemi.EditValue = "";
+            this.cmbOdemeYontemi.Location = new System.Drawing.Point(92, 104);
+            this.cmbOdemeYontemi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmbOdemeYontemi.Name = "cmbOdemeYontemi";
+            this.cmbOdemeYontemi.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbOdemeYontemi.Properties.Appearance.Options.UseFont = true;
+            this.cmbOdemeYontemi.Properties.Appearance.Options.UseTextOptions = true;
+            this.cmbOdemeYontemi.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.cmbOdemeYontemi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cmbOdemeYontemi.Properties.Items.AddRange(new object[] {
+            "Nakit Ödeme",
+            "Banka Havalesi",
+            "EFT",
+            "Kredi Kartı Ödemesi"});
+            this.cmbOdemeYontemi.Size = new System.Drawing.Size(232, 20);
+            this.cmbOdemeYontemi.TabIndex = 22;
+            // 
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.panelControl2);
@@ -398,32 +429,6 @@
             this.imageCollection1.Images.SetKeyName(1, "cancel_32x32.png");
             this.imageCollection1.Images.SetKeyName(2, "warning_32x32.png");
             // 
-            // labelControl4
-            // 
-            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.labelControl4.Appearance.Options.UseFont = true;
-            this.labelControl4.Location = new System.Drawing.Point(21, 108);
-            this.labelControl4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(63, 13);
-            this.labelControl4.TabIndex = 21;
-            this.labelControl4.Text = "Ödeme Türü:";
-            // 
-            // cmbOdemeYontemi
-            // 
-            this.cmbOdemeYontemi.EditValue = "";
-            this.cmbOdemeYontemi.Location = new System.Drawing.Point(92, 104);
-            this.cmbOdemeYontemi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cmbOdemeYontemi.Name = "cmbOdemeYontemi";
-            this.cmbOdemeYontemi.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cmbOdemeYontemi.Properties.Appearance.Options.UseFont = true;
-            this.cmbOdemeYontemi.Properties.Appearance.Options.UseTextOptions = true;
-            this.cmbOdemeYontemi.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.cmbOdemeYontemi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbOdemeYontemi.Size = new System.Drawing.Size(232, 20);
-            this.cmbOdemeYontemi.TabIndex = 22;
-            // 
             // FrmOdeme
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -448,6 +453,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateOdemeTarihi.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateOdemeTarihi.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lkpMusteri.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbOdemeYontemi.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
@@ -455,7 +461,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbOdemeYontemi.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

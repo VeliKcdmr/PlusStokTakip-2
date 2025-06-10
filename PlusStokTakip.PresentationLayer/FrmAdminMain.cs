@@ -1,16 +1,20 @@
 ﻿using System.Windows.Forms;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Ayarlar;
-using PlusStokTakip.PresentationLayer.Admin.Modules.Defines;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Urunler;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Cariler;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Stok;
 using PlusStokTakip.PresentationLayer.Admin.Modules.SatinAlma;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Satis;
+using PlusStokTakip.PresentationLayer.Admin.Modules.Finans;
+using PlusStokTakip.PresentationLayer.Admin.Modules.Tanimlar;
+using PlusStokTakip.BusinessLayer.Concrete;
+using PlusStokTakip.DataAccessLayer.EntityFramework;
+
 
 namespace PlusStokTakip.PresentationLayer
 {
     public partial class FrmAdminMain : DevExpress.XtraEditors.XtraForm
-    {
+    {       
         FrmRaf frmRaf;
         FrmKategori frmKategori;
         FrmMarka frmMarka;
@@ -24,6 +28,10 @@ namespace PlusStokTakip.PresentationLayer
         FrmStok frmStok;
         FrmSatinAlma frmSatinAlma;
         FrmSatis FrmSatis;
+        FrmBanka FrmBanka;
+        FrmKasa FrmKasa;
+        FrmOdeme FrmOdeme;
+        FrmBankaHesap FrmBankaHesap;
         public FrmAdminMain()
         {
             InitializeComponent();
@@ -215,6 +223,62 @@ namespace PlusStokTakip.PresentationLayer
             else
             {
                 FrmSatis.BringToFront();
+            }
+        }
+
+        private void btnOdeme_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (FrmOdeme == null || FrmOdeme.IsDisposed)
+            {
+                FrmOdeme = new FrmOdeme();
+                FrmOdeme.MdiParent = this;
+                FrmOdeme.Show();
+            }
+            else
+            {
+                FrmOdeme.BringToFront();
+            }
+        }
+
+        private void btnKasa_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (FrmKasa == null || FrmKasa.IsDisposed)
+            {
+                FrmKasa = new FrmKasa();
+                FrmKasa.MdiParent = this;
+                FrmKasa.Show();
+            }
+            else
+            {
+                FrmKasa.BringToFront();
+            }
+        }
+
+        private void btnBanka_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (FrmBanka == null || FrmBanka.IsDisposed)
+            {
+                FrmBanka = new FrmBanka();
+                FrmBanka.MdiParent = this;
+                FrmBanka.Show();
+            }
+            else
+            {
+                FrmBanka.BringToFront();
+            }
+        }
+
+        private void btnBankaHesap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (FrmBankaHesap == null || FrmBankaHesap.IsDisposed)
+            {
+                FrmBankaHesap = new FrmBankaHesap();
+                FrmBankaHesap.MdiParent = this;
+                FrmBankaHesap.Show();
+            }
+            else
+            {
+                FrmBankaHesap.BringToFront();
             }
         }
     }

@@ -31,6 +31,7 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public string Email { get; set; }
         public string Address { get; set; }
         public bool IsActive { get; set; }
+        public string CustomerTC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sales> Sales { get; set; }

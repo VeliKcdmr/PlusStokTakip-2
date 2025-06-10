@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
+namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
 {
     public partial class FrmModel : DevExpress.XtraEditors.XtraForm
     {
@@ -36,19 +36,21 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         // Modelleri yükler
         private void modelsLoad()
         {
-            var modelsList = _modelsManager.TGetAll().Where(m=>m.IsActive==true).Select(m => new
+            var modelsList = _modelsManager.TGetAll().Where(m => m.IsActive == true).Select(m => new
             {
                 m.ModelID,
                 m.ModelName,
                 m.ModelYear,
-                BrandName = m.Brands?.BrandName ?? "Marka Yok"                
+                BrandName = m.Brands?.BrandName ?? "Marka Yok",
+                IsActive = m.IsActive ? "Aktif" : "Pasif"
             }).ToList();
 
             gridControl1.DataSource = modelsList;
-            gridView1.Columns["ModelID"].Visible = false; // Model ID'yi gizle
+            gridView1.Columns["ModelID"].Caption = "Model ID";
             gridView1.Columns["ModelName"].Caption = "Model Adı";
             gridView1.Columns["ModelYear"].Caption = "Model Yılı";
-            gridView1.Columns["BrandName"].Caption = "Marka";            
+            gridView1.Columns["BrandName"].Caption = "Marka";
+            gridView1.Columns["IsActive"].Caption = "Durum";
 
         }
 
@@ -103,7 +105,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
                     ModelName = txtAd.Text.Trim(),
                     ModelYear = DateTimeOffset.Parse(cmbModelYil.EditValue.ToString()).Year,
                     BrandID = (int)cmbMarka.EditValue,
-                    IsActive = true // Varsayılan olarak aktif
+                    IsActive = true
 
                 };
 
@@ -169,10 +171,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Model adı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(cmbModelYil, "Lütfen bir Model Yılı seçiniz!")) return;
-                if (!ValidationHelper.ValidateControl(cmbMarka, "Lütfen bir Marka seçiniz!")) return;
-
                 if (gridView1.FocusedRowHandle < 0)
                 {
                     MessageBox.Show("Lütfen bir satır seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -221,8 +219,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
             {
                 txtAd.Text = model.ModelName;
                 cmbModelYil.EditValue = new DateTimeOffset(new DateTime(model.ModelYear, 1, 1));
-                cmbMarka.EditValue = model.BrandID;               
-
+                cmbMarka.EditValue = model.BrandID;              
                 btnKaydet.Enabled = false;
                 btnGuncelle.Enabled = true;
                 btnSil.Enabled = true;
@@ -230,25 +227,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
             else
             {
                 MessageBox.Show("Seçilen model bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void txtAd_EditValueChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtAd.Text))
-            {
-
-                btnGuncelle.Enabled = false;
-                btnSil.Enabled = false;
-            }
-            else
-            {
-
-                if (btnKaydet.Enabled == false)
-                {
-                    btnGuncelle.Enabled = gridView1.FocusedRowHandle >= 0;
-                    btnSil.Enabled = gridView1.FocusedRowHandle >= 0;
-                }
             }
         }
     }

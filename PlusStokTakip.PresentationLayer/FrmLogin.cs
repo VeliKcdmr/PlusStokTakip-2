@@ -58,7 +58,7 @@ namespace PlusStokTakip.PresentationLayer
                         break;
                     case "Kullanıcı":
                         // Kullanıcı ekranını aç ve ID'yi geç
-                        frmUserMain._userName = userName; // Kullanıcı ID'sini diğer forma gönder
+                        frmUserMain._userName = userName; // Kullanıcı Kullanıcı Adını diğer forma gönder
                         frmUserMain._userId=userId; // Kullanıcı ID'sini diğer forma gönder
                         frmUserMain.Show();
                         break;

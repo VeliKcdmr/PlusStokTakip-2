@@ -22,6 +22,7 @@ namespace PlusStokTakip.EntityLayer.EntityModel
         public decimal Price { get; set; }
         public Nullable<decimal> TotalRevenue { get; set; }
         public bool IsActive { get; set; }
+        public string Description { get; set; }
     
         public virtual Products Products { get; set; }
         public virtual Customers Customers { get; set; }

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBankAccountsDal.cs" />
     <Compile Include="Abstract\IBankTransactionsDal.cs" />
     <Compile Include="Abstract\IBrandsDal.cs" />
     <Compile Include="Abstract\ICashRegisterDal.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Abstract\IStockMovementsDal.cs" />
     <Compile Include="Abstract\ISuppliersDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
+    <Compile Include="EntityFramework\EfBankAccountsDal.cs" />
     <Compile Include="EntityFramework\EfBankTransactionsDal.cs" />
     <Compile Include="EntityFramework\EfBrandsDal.cs" />
     <Compile Include="EntityFramework\EfCashRegisterDal.cs" />

@@ -15,11 +15,13 @@ namespace PlusStokTakip.EntityLayer.EntityModel
     public partial class BankTransactions
     {
         public int TransactionID { get; set; }
-        public string AccountNumber { get; set; }
+        public int AccountID { get; set; }
         public string TransactionType { get; set; }
-        public decimal Amount { get; set; }
-        public System.DateTime TransactionDate { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public Nullable<System.DateTime> TransactionDate { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
+    
+        public virtual BankAccounts BankAccounts { get; set; }
     }
 }

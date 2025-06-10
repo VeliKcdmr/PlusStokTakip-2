@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PlusStokTakip.PresentationLayer.Admin.Modules.Defines
+namespace PlusStokTakip.PresentationLayer.Admin.Modules.Tanimlar
 {
     public partial class FrmMarka : DevExpress.XtraEditors.XtraForm
     {

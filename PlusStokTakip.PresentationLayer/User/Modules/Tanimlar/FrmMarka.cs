@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
+namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
 {
     public partial class FrmMarka : DevExpress.XtraEditors.XtraForm
     {
@@ -27,7 +27,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
 
         private void FreshForm()
         {
-            gridControl1.Refresh();
             BrandsLoad();
             CategoriesLoad();
             CleanFields();
@@ -35,24 +34,26 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
 
         private void BrandsLoad()
         {
-            var brandsList = _brandsManager.TGetAll().Where(b => b.IsActive == true)
+            var brandsList = _brandsManager.TGetAll().Where(b => b.IsActive) // Sadece aktif markaları getir
                 .Select(b => new
                 {
                     b.BrandID,
                     b.BrandName,
                     CategoryName = b.Categories != null ? b.Categories.CategoryName : "Kategori Yok",
+                    IsActive = b.IsActive ? "Aktif" : "Pasif"
 
                 }).ToList();
 
             gridControl1.DataSource = brandsList;
             gridView1.Columns["BrandID"].Visible = false; // BrandID sütununu gizle           
             gridView1.Columns["BrandName"].Caption = "Marka Adı";
-            gridView1.Columns["CategoryName"].Caption = "Kategori Adı"; // Kategori adını göster            
+            gridView1.Columns["CategoryName"].Caption = "Kategori Adı"; // Kategori adını göster
+            gridView1.Columns["IsActive"].Caption = "Durum";
         }
 
         private void CategoriesLoad()
         {
-            var categories = _categoriesManager.TGetAll().Where(c => c.IsActive == true).Select(c => new
+            var categories = _categoriesManager.TGetAll().Where(c=>c.IsActive==true).Select(c => new
             {
                 c.CategoryID,
                 c.CategoryName
@@ -118,8 +119,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Model adı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(cmbKategori, "Lütfen bir kategori seçiniz!")) return;
                 // Aynı kategoride aynı isim kontrolü
                 var existingBrand = _brandsManager.TGetAll().FirstOrDefault(b =>
                     b.BrandName.Equals(txtAd.Text.Trim(), StringComparison.OrdinalIgnoreCase) &&
@@ -143,8 +142,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
                 if (selectedBrand != null)
                 {
                     selectedBrand.BrandName = txtAd.Text.Trim();
-                    selectedBrand.CategoryID = (int)cmbKategori.EditValue;
-
+                    selectedBrand.CategoryID = (int)cmbKategori.EditValue;                   
 
                     _brandsManager.TUpdate(selectedBrand);
                     MessageBox.Show("Marka başarıyla güncellendi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -165,8 +163,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
         {
             try
             {
-                if (!ValidationHelper.ValidateControl(txtAd, "Model adı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(cmbKategori, "Lütfen bir kategori seçiniz!")) return;
                 if (gridView1.FocusedRowHandle < 0)
                 {
                     MessageBox.Show("Lütfen bir satır seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -213,7 +209,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
             if (brand != null)
             {
                 txtAd.Text = brand.BrandName;
-                cmbKategori.EditValue = brand.CategoryID;
+                cmbKategori.EditValue = brand.CategoryID;              
 
                 btnKaydet.Enabled = false;
                 btnGuncelle.Enabled = true;
@@ -222,24 +218,6 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Defines
             else
             {
                 MessageBox.Show("Seçilen marka bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void txtAd_EditValueChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtAd.Text))
-            {
-
-                btnGuncelle.Enabled = false;
-                btnSil.Enabled = false;
-            }
-            else
-            {
-                if (btnKaydet.Enabled == false)
-                {
-                    btnGuncelle.Enabled = gridView1.FocusedRowHandle >= 0;
-                    btnSil.Enabled = gridView1.FocusedRowHandle >= 0;
-                }
             }
         }
     }

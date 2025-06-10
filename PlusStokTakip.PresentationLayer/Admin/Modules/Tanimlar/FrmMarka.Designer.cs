@@ -1,4 +1,4 @@
-﻿namespace PlusStokTakip.PresentationLayer.Admin.Modules.Defines
+﻿namespace PlusStokTakip.PresentationLayer.Admin.Modules.Tanimlar
 {
     partial class FrmMarka
     {
