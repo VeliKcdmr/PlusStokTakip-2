@@ -1,6 +1,5 @@
 ﻿using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
-using DevExpress.XtraGrid.Views.Base;
 using PlusStokTakip.BusinessLayer.Concrete;
 using PlusStokTakip.DataAccessLayer.EntityFramework;
 using PlusStokTakip.EntityLayer.EntityModel;
@@ -57,12 +56,12 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
                         p.ProductID,
                         p.ProductName,
                         p.Barcode,
-                        ShelfName = shelves.ContainsKey(p.ShelfID ?? 0) ? shelves[p.ShelfID ?? 0] : "Bilinmiyor",
-                        CategoryName = categories.ContainsKey(p.CategoryID ?? 0) ? categories[p.CategoryID ?? 0] : "Bilinmiyor",
+                        ShelfName = shelves.ContainsKey(p.ShelfID ?? 0) ? shelves[p.ShelfID ?? 0] : "Bulunamadı",
+                        CategoryName = categories.ContainsKey(p.CategoryID ?? 0) ? categories[p.CategoryID ?? 0] : "Bulunamadı",
                         BrandName = models.ContainsKey(p.ModelID ?? 0) && brands.ContainsKey(models[p.ModelID ?? 0].BrandID ?? 0)
                             ? brands[models[p.ModelID ?? 0].BrandID ?? 0]
-                            : "Bilinmiyor",
-                        ModelName = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelName : "Bilinmiyor",
+                            : "Bulunamadı",
+                        ModelName = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelName : "Bulunamadı",
                         ModelYear = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelYear : (int?)null,
                         p.StockQuantity,
                         Cost = string.Format("{0:#,##0.00} ₺", p.Cost),
@@ -86,7 +85,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
                 layoutView1.CardCaptionFormat = "{ProductName}"; // **Kart başlığı formatı**
                 // **Kolon başlıklarını düzenle**
                 layoutView1.Columns["ImageData"].Caption = "Ürün Resmi";
-                layoutView1.Columns["ProductID"].Caption = "Ürün ID";
+                layoutView1.Columns["ProductID"].Visible = false; // **ProductID kolonunu gizle**
                 layoutView1.Columns["ProductName"].Caption = "Ürün Adı";
                 layoutView1.Columns["Barcode"].Caption = "Barkod";
                 layoutView1.Columns["ShelfName"].Caption = "Raf Adı";
@@ -96,7 +95,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
                 layoutView1.Columns["ModelYear"].Caption = "Model Yılı";
                 layoutView1.Columns["StockQuantity"].Caption = "Stok Miktarı";
                 layoutView1.Columns["Price"].Caption = "Satış Fiyat";
-                layoutView1.Columns["Cost"].Caption = "Alış Fiyatı";                
+                layoutView1.Columns["Cost"].Caption = "Alış Fiyatı";
             }
             catch (Exception ex)
             {
@@ -133,7 +132,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
             cmbKategori.Properties.DataSource = categories.ToList();
             cmbKategori.Properties.DisplayMember = "CategoryName";
             cmbKategori.Properties.ValueMember = "CategoryID";
-            cmbKategori.Properties.PopulateColumns();
+            cmbKategori.Properties.PopulateColumns();            
             cmbKategori.Properties.NullText = "Kategori Seçiniz";
             cmbKategori.Properties.Columns["CategoryID"].Visible = false;
             cmbKategori.Properties.Columns["CategoryName"].Caption = "Kategori Adı";
@@ -180,16 +179,12 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
             try
             {
                 // **Validation Kontrolü** (Daha Kısa ve Okunaklı)
-                if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtBarkod, "Barkod boş bırakılamaz!")) return;
+                if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;               
                 if (!ValidationHelper.ValidateControl(cmbKategori, "Kategori seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbMarka, "Marka seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbModel, "Model seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
-                if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtAFiyat, "Fiyat boş bırakılamaz!")) return;
-
                 var selectedCategoryId = Convert.ToInt32(cmbKategori.EditValue);
                 var selectedBrandId = Convert.ToInt32(cmbMarka.EditValue);
                 var selectedModelName = cmbModel.EditValue.ToString();
@@ -246,14 +241,11 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
             try
             {
                 if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtBarkod, "Barkod boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbKategori, "Kategori seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbMarka, "Marka seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbModel, "Model seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
-                if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtAFiyat, "Fiyat boş bırakılamaz!")) return;
                 var productId = Convert.ToInt32(layoutView1.GetFocusedRowCellValue("ProductID"));
                 var productToUpdate = _productsManager.TGetById(productId);
 
@@ -296,14 +288,11 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
             try
             {
                 if (!ValidationHelper.ValidateControl(txtAd, "Ürün adı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtBarkod, "Barkod boş bırakılamaz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbKategori, "Kategori seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbMarka, "Marka seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbModel, "Model seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbYil, "Yıl seçiniz!")) return;
                 if (!ValidationHelper.ValidateControl(cmbRaf, "Raf seçiniz!")) return;
-                if (!ValidationHelper.ValidateControl(spinAdet, "Stok miktarı boş bırakılamaz!")) return;
-                if (!ValidationHelper.ValidateControl(txtAFiyat, "Fiyat boş bırakılamaz!")) return;
                 var productId = (int)layoutView1.GetFocusedRowCellValue("ProductID");
                 var productToDelete = _productsManager.TGetById(productId);
 
@@ -381,7 +370,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
                 cmbMarka.Enabled = true;
                 var selectedCategoryId = (int)cmbKategori.EditValue;
                 var brands = _brandsManager.TGetAll()
-                    .Where(b => b.CategoryID == selectedCategoryId)
+                    .Where(b => b.CategoryID == selectedCategoryId && b.IsActive == true)
                     .Select(b => new
                     {
                         b.BrandID,
@@ -415,7 +404,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
                 var selectedBrandId = (int)cmbMarka.EditValue;
                 // Model adlarını gruplandır ve hazırlamak için gereken verileri al
                 var models = _modelsManager.TGetAll()
-                    .Where(m => m.BrandID == selectedBrandId)
+                    .Where(m => m.BrandID == selectedBrandId && m.IsActive == true)
                     .GroupBy(m => m.ModelName)
                     .Select(g => new
                     {
@@ -451,7 +440,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
                 var selectedModelName = cmbModel.EditValue.ToString();
                 // Seçilen model adına ait yılları getir
                 var years = _modelsManager.TGetAll()
-                    .Where(m => m.ModelName.Equals(selectedModelName, StringComparison.OrdinalIgnoreCase))
+                    .Where(m => m.ModelName.Equals(selectedModelName, StringComparison.OrdinalIgnoreCase) && m.IsActive == true)
                     .Select(m => new
                     {
                         m.ModelYear // Yıllar
@@ -533,5 +522,19 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Urunler
             }
         }
 
+        private void layoutView1_CustomDrawEmptyForeground(object sender, DevExpress.XtraGrid.Views.Base.CustomDrawEventArgs e)
+        {
+            if (layoutView1.RowCount == 0)
+            {
+                string message = "Veri Bulunamadı";
+                Font messageFont = new Font("Tahoma", 12, FontStyle.Bold);
+                Rectangle rect = e.Bounds;
+                e.Graphics.DrawString(message, messageFont, Brushes.Gray, rect, new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                });
+            }
+        }       
     }
 }

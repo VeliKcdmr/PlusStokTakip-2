@@ -7,14 +7,13 @@ using PlusStokTakip.PresentationLayer.Admin.Modules.SatinAlma;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Satis;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Finans;
 using PlusStokTakip.PresentationLayer.Admin.Modules.Tanimlar;
-using PlusStokTakip.BusinessLayer.Concrete;
-using PlusStokTakip.DataAccessLayer.EntityFramework;
+using PlusStokTakip.PresentationLayer.Admin.Modules.Dashboard;
 
 
 namespace PlusStokTakip.PresentationLayer
 {
     public partial class FrmAdminMain : DevExpress.XtraEditors.XtraForm
-    {       
+    {
         FrmRaf frmRaf;
         FrmKategori frmKategori;
         FrmMarka frmMarka;
@@ -32,6 +31,7 @@ namespace PlusStokTakip.PresentationLayer
         FrmKasa FrmKasa;
         FrmOdeme FrmOdeme;
         FrmBankaHesap FrmBankaHesap;
+        FrmDashboard FrmDashboard;
         public FrmAdminMain()
         {
             InitializeComponent();
@@ -280,6 +280,27 @@ namespace PlusStokTakip.PresentationLayer
             {
                 FrmBankaHesap.BringToFront();
             }
+        }
+
+        private void btnDashboard_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (FrmDashboard == null || FrmDashboard.IsDisposed)
+            {
+                FrmDashboard = new FrmDashboard();
+                FrmDashboard.MdiParent = this;
+                FrmDashboard.Show();
+            }
+            else
+            {
+                FrmDashboard.BringToFront();
+            }
+        }
+
+        private void FrmAdminMain_Load(object sender, System.EventArgs e)
+        {
+            FrmDashboard = new FrmDashboard();
+            FrmDashboard.MdiParent = this;
+            FrmDashboard.Show();
         }
     }
 }

@@ -62,7 +62,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Ayarlar
         {
             try
             {
-                string updateInfoUrl = "http://plusyazilim.com.tr/update-info.json";
+                string updateInfoUrl = "http://95.70.200.104/update-info.json";
                 HttpResponseMessage response = await client.GetAsync(updateInfoUrl);
 
                 response.EnsureSuccessStatusCode(); // HTTP yanıt kodunu kontrol et
@@ -99,7 +99,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Ayarlar
                     return;
                 }
 
-                string updateFileUrl = "http://plusyazilim.com.tr/" + updateInfo.Files[0].Path;
+                string updateFileUrl = "http://95.70.200.104/" + updateInfo.Files[0].Path;
                 string savePath = Path.Combine(Application.StartupPath, "PlusStokTakip-Update.msi");
 
                 // Güncelleme başlatılmadan önce yeni versiyon bilgisini al ve sakla

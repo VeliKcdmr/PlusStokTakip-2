@@ -50,6 +50,9 @@
             this.btnBanka = new DevExpress.XtraBars.BarButtonItem();
             this.btnBankaHesap = new DevExpress.XtraBars.BarButtonItem();
             this.btnFirma = new DevExpress.XtraBars.BarButtonItem();
+            this.btnDashboard = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPage9 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup19 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage5 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -77,9 +80,6 @@
             this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.ribbonPage9 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.btnDashboard = new DevExpress.XtraBars.BarButtonItem();
-            this.ribbonPageGroup19 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.SuspendLayout();
@@ -130,7 +130,7 @@
             this.ribbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl1.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbonControl1.ShowToolbarCustomizeItem = false;
-            this.ribbonControl1.Size = new System.Drawing.Size(1022, 133);
+            this.ribbonControl1.Size = new System.Drawing.Size(1364, 133);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
             this.ribbonControl1.Toolbar.ShowCustomizeItem = false;
             this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Below;
@@ -281,6 +281,26 @@
             this.btnFirma.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnFirma.ImageOptions.SvgImage")));
             this.btnFirma.Name = "btnFirma";
             this.btnFirma.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnFirma_ItemClick);
+            // 
+            // btnDashboard
+            // 
+            this.btnDashboard.Caption = "Giriş Ekranı";
+            this.btnDashboard.Id = 20;
+            this.btnDashboard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDashboard.ImageOptions.SvgImage")));
+            this.btnDashboard.Name = "btnDashboard";
+            this.btnDashboard.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDashboard_ItemClick);
+            // 
+            // ribbonPage9
+            // 
+            this.ribbonPage9.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup19});
+            this.ribbonPage9.Name = "ribbonPage9";
+            this.ribbonPage9.Text = "Ana Sayfa";
+            // 
+            // ribbonPageGroup19
+            // 
+            this.ribbonPageGroup19.ItemLinks.Add(this.btnDashboard);
+            this.ribbonPageGroup19.Name = "ribbonPageGroup19";
             // 
             // ribbonPage2
             // 
@@ -440,40 +460,21 @@
             // 
             // ribbonStatusBar1
             // 
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 541);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 641);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1022, 27);
-            // 
-            // ribbonPage9
-            // 
-            this.ribbonPage9.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup19});
-            this.ribbonPage9.Name = "ribbonPage9";
-            this.ribbonPage9.Text = "Ana Sayfa";
-            // 
-            // btnDashboard
-            // 
-            this.btnDashboard.Caption = "Giriş Ekranı";
-            this.btnDashboard.Id = 20;
-            this.btnDashboard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItem1.ImageOptions.SvgImage")));
-            this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDashboard_ItemClick);
-            // 
-            // ribbonPageGroup19
-            // 
-            this.ribbonPageGroup19.ItemLinks.Add(this.btnDashboard);
-            this.ribbonPageGroup19.Name = "ribbonPageGroup19";
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1364, 27);
             // 
             // FrmUserMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 568);
+            this.AutoScroll = true;
+            this.AutoScrollMargin = new System.Drawing.Size(20, 20);
+            this.ClientSize = new System.Drawing.Size(1364, 668);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("FrmUserMain.IconOptions.Image")));
-            this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "FrmUserMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

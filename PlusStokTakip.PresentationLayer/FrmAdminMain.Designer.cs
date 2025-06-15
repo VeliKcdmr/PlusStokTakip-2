@@ -49,6 +49,9 @@
             this.btnKasa = new DevExpress.XtraBars.BarButtonItem();
             this.btnBanka = new DevExpress.XtraBars.BarButtonItem();
             this.btnBankaHesap = new DevExpress.XtraBars.BarButtonItem();
+            this.btnDashboard = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPage9 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup18 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage5 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -105,11 +108,13 @@
             this.btnOdeme,
             this.btnKasa,
             this.btnBanka,
-            this.btnBankaHesap});
+            this.btnBankaHesap,
+            this.btnDashboard});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 18;
+            this.ribbonControl1.MaxItemId = 19;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.ribbonPage9,
             this.ribbonPage2,
             this.ribbonPage5,
             this.ribbonPage4,
@@ -155,8 +160,7 @@
             // 
             this.btnModel.Caption = "Model İşlemleri";
             this.btnModel.Id = 4;
-            this.btnModel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnModel.ImageOptions.Image")));
-            this.btnModel.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnModel.ImageOptions.LargeImage")));
+            this.btnModel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnModel.ImageOptions.SvgImage")));
             this.btnModel.Name = "btnModel";
             this.btnModel.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnModel_ItemClick);
             // 
@@ -265,6 +269,26 @@
             this.btnBankaHesap.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnBankaHesap.ImageOptions.SvgImage")));
             this.btnBankaHesap.Name = "btnBankaHesap";
             this.btnBankaHesap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBankaHesap_ItemClick);
+            // 
+            // btnDashboard
+            // 
+            this.btnDashboard.Caption = "Ana Sayfa";
+            this.btnDashboard.Id = 18;
+            this.btnDashboard.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDashboard.ImageOptions.SvgImage")));
+            this.btnDashboard.Name = "btnDashboard";
+            this.btnDashboard.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDashboard_ItemClick);
+            // 
+            // ribbonPage9
+            // 
+            this.ribbonPage9.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup18});
+            this.ribbonPage9.Name = "ribbonPage9";
+            this.ribbonPage9.Text = "Ana Sayfa";
+            // 
+            // ribbonPageGroup18
+            // 
+            this.ribbonPageGroup18.ItemLinks.Add(this.btnDashboard);
+            this.ribbonPageGroup18.Name = "ribbonPageGroup18";
             // 
             // ribbonPage2
             // 
@@ -435,7 +459,8 @@
             this.Name = "FrmAdminMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dashboard";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmAdminMain_FormClosed);            
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmAdminMain_FormClosed);
+            this.Load += new System.EventHandler(this.FrmAdminMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             this.ResumeLayout(false);
@@ -490,5 +515,8 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
         private DevExpress.XtraBars.BarButtonItem btnBankaHesap;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup17;
+        private DevExpress.XtraBars.BarButtonItem btnDashboard;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage9;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup18;
     }
 }

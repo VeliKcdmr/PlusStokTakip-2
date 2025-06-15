@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace PlusStokTakip.PresentationLayer.User.Modules.Dashboard
+namespace PlusStokTakip.PresentationLayer.Admin.Modules.Dashboard
 {
     public partial class FrmDashboard : DevExpress.XtraEditors.XtraForm
     {
@@ -250,9 +250,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Dashboard
                     JObject weatherData = JObject.Parse(responseBody);
 
                     lblSicaklik.Text = $"Sıcaklık: {weatherData["current"]["temp_c"]}°C";
-                    lblDurum.Text = $"{weatherData["current"]["condition"]["text"].ToString()}";
-                    string iconUrl = "https:" + weatherData["current"]["condition"]["icon"].ToString();
-                    pictureBox3.Load(iconUrl); // Hava durumu simgesini yükle
+                    lblDurum.Text = $"Durum: {weatherData["current"]["condition"]["text"].ToString()}";
                 }
             }
             catch (Exception ex)

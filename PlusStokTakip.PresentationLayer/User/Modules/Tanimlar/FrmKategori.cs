@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraLayout.Customization;
-using PlusStokTakip.BusinessLayer.Concrete;
+﻿using PlusStokTakip.BusinessLayer.Concrete;
 using PlusStokTakip.DataAccessLayer.EntityFramework;
 using PlusStokTakip.EntityLayer.EntityModel;
 using StokTakipApp.PresentationLayer.Helpers;
@@ -34,7 +33,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
             }).ToList();
 
             gridControl1.DataSource = categoriesList;
-            gridView1.Columns["CategoryID"].Caption = "Kategori ID";
+            gridView1.Columns["CategoryID"].Visible=false;
             gridView1.Columns["CategoryName"].Caption = "Kategori Adı";            
         }
 

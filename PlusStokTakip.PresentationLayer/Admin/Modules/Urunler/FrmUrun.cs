@@ -43,13 +43,13 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             try
             {
                 // **Tüm verileri tek seferde alın**
-                var categories = _categoriesManager.TGetAll().ToDictionary(c => c.CategoryID, c => c.CategoryName);
-                var brands = _brandsManager.TGetAll().ToDictionary(b => b.BrandID, b => b.BrandName);
-                var models = _modelsManager.TGetAll().ToDictionary(m => m.ModelID, m => new { m.ModelName, m.ModelYear, m.BrandID });
-                var shelves = _shelvesManager.TGetAll().ToDictionary(s => s.ShelfID, s => s.ShelfName);
+                var categories = _categoriesManager.TGetAll().Where(c => c.IsActive == true).ToDictionary(c => c.CategoryID, c => c.CategoryName);
+                var brands = _brandsManager.TGetAll().Where(b => b.IsActive == true).ToDictionary(b => b.BrandID, b => b.BrandName);
+                var models = _modelsManager.TGetAll().Where(m => m.IsActive == true).ToDictionary(m => m.ModelID, m => new { m.ModelName, m.ModelYear, m.BrandID });
+                var shelves = _shelvesManager.TGetAll().Where(s => s.IsActive == true).ToDictionary(s => s.ShelfID, s => s.ShelfName);
 
                 // **Ürünleri yükle**
-                var products = _productsManager.TGetAll()
+                var products = _productsManager.TGetAll().Where(p => p.IsActive == true)
                     .Select(p => new
                     {
                         // **Resmi kare içine kırp ve yeniden boyutlandır**
@@ -66,12 +66,10 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                         ModelYear = models.ContainsKey(p.ModelID ?? 0) ? models[p.ModelID ?? 0].ModelYear : (int?)null,
                         p.StockQuantity,
                         Cost = string.Format("{0:#,##0.00} ₺", p.Cost),
-                        Price = string.Format("{0:#,##0.00} ₺", p.Price),                        
-                        IsActive = p.IsActive ? "Aktif" : "Pasif"
+                        Price = string.Format("{0:#,##0.00} ₺", p.Price)
                     }).ToList();
 
-                // **GridControl'e bağla**
-                gridControl1.DataSource = null;
+                // **GridControl'e bağla**               
                 gridControl1.DataSource = products;
 
                 // **Resim Kolonu İçin Repository Item Kullan**
@@ -97,8 +95,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 layoutView1.Columns["ModelYear"].Caption = "Model Yılı";
                 layoutView1.Columns["StockQuantity"].Caption = "Stok Miktarı";
                 layoutView1.Columns["Price"].Caption = "Satış Fiyat";
-                layoutView1.Columns["Cost"].Caption = "Alış Fiyatı";
-                layoutView1.Columns["IsActive"].Caption = "Durum";
+                layoutView1.Columns["Cost"].Caption = "Alış Fiyatı";                
             }
             catch (Exception ex)
             {
@@ -125,7 +122,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
         }
         private void LoadCategories()
         {
-            var categories = _categoriesManager.TGetAll()
+            var categories = _categoriesManager.TGetAll().Where(c => c.IsActive == true)
                 .Select(c => new
                 {
                     c.CategoryID,
@@ -175,7 +172,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
             layoutView1.RefreshData();
             gridControl1.RefreshDataSource();
         }
-      
+
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
@@ -222,7 +219,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                     ShelfID = selectedShelfId,
                     StockQuantity = stockQuantity,
                     Price = price,
-                    Cost=cost,
+                    Cost = cost,
                     ImageData = selectedImageBytes, // **Resim verisini ekle**
                     IsActive = true,
                     CDate = DateTime.Now.Date
@@ -355,8 +352,7 @@ namespace PlusStokTakip.PresentationLayer.Admin.Modules.Urunler
                 cmbMarka.EditValue = selectedProduct.BrandID;
                 cmbModel.EditValue = selectedProduct.Models.ModelName;
                 cmbYil.EditValue = selectedProduct.Models.ModelYear;
-                cmbRaf.EditValue = selectedProduct.ShelfID;
-                tsDurum.IsOn = selectedProduct.IsActive;
+                cmbRaf.EditValue = selectedProduct.ShelfID;                
                 pictureEdit1.Image = selectedProduct.ImageData != null && selectedProduct.ImageData.Length > 0
                     ? Image.FromStream(new MemoryStream(selectedProduct.ImageData))
                     : null; // Resim yoksa null ata

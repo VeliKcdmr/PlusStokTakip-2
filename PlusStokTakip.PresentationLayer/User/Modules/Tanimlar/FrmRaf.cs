@@ -3,8 +3,6 @@ using PlusStokTakip.DataAccessLayer.EntityFramework;
 using PlusStokTakip.EntityLayer.EntityModel;
 using StokTakipApp.PresentationLayer.Helpers;
 using System;
-using System.Drawing;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -23,14 +21,11 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
             {
                 s.ShelfID,
                 s.ShelfName,
-                s.ShelfDescription,
-                IsActive = s.IsActive ? "Aktif" : "Pasif"
+                s.ShelfDescription,                
             });
             gridControl1.DataSource = shelvesList; // GridControl'e bağlar
             gridView1.Columns["ShelfName"].Caption = "Raf Adı"; // Sütun başlıklarını değiştir
-            gridView1.Columns["ShelfDescription"].Caption = "Açıklama";
-            gridView1.Columns["IsActive"].Caption = "Durum";
-            gridView1.Columns["ShelfID"].Caption = "Raf ID";
+            gridView1.Columns["ShelfDescription"].Caption = "Açıklama";            
             // gridView1.Columns["ShelfID"].Visible = false; // "Id" sütununu gizle
         }
         private void FrmRaf_Load(object sender, EventArgs e)
@@ -94,7 +89,7 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
                     return;
                 }
                 var existingShelf = _shelvesManager.TGetAll()
-                    .FirstOrDefault(s => s.ShelfName.Equals(txtAd.Text.Trim(), StringComparison.OrdinalIgnoreCase) && s.IsActive);
+                    .FirstOrDefault(s => s.ShelfName.Equals(txtAd.Text.Trim(), StringComparison.OrdinalIgnoreCase) && s.IsActive==true);
                 if (existingShelf != null)
                 {
                     MessageBox.Show($"'{txtAd.Text.Trim()}' adlı raf zaten mevcut!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);

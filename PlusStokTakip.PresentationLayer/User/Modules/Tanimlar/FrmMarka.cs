@@ -39,16 +39,13 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
                 {
                     b.BrandID,
                     b.BrandName,
-                    CategoryName = b.Categories != null ? b.Categories.CategoryName : "Kategori Yok",
-                    IsActive = b.IsActive ? "Aktif" : "Pasif"
-
+                    CategoryName = b.Categories != null ? b.Categories.CategoryName : "Kategori Yok"
                 }).ToList();
 
             gridControl1.DataSource = brandsList;
             gridView1.Columns["BrandID"].Visible = false; // BrandID sütununu gizle           
             gridView1.Columns["BrandName"].Caption = "Marka Adı";
-            gridView1.Columns["CategoryName"].Caption = "Kategori Adı"; // Kategori adını göster
-            gridView1.Columns["IsActive"].Caption = "Durum";
+            gridView1.Columns["CategoryName"].Caption = "Kategori Adı"; // Kategori adını göster           
         }
 
         private void CategoriesLoad()

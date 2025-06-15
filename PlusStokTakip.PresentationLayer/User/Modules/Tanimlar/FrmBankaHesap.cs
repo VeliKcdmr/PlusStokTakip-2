@@ -23,25 +23,24 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
         {
             var bankAccounts = _bankAccountsManager.TGetAll().Where(a=>a.IsActive==true).Select(a => new
             {
-                a.AccountID,
+                a.AccountID,                
                 a.BankName,
                 a.Iban,
                 a.AccountNumber,
                 a.AccountType,
                 a.Balance,
-                a.Description,
-                IsActive = a.IsActive ? "Aktif" : "Pasif"
+                a.Description                
             }).ToList();
 
             gridControl1.DataSource = bankAccounts;
 
             gridView1.Columns["AccountID"].Visible = false;
-            gridView1.Columns["BankID"].Caption = "Banka ID";
+            gridView1.Columns["BankName"].Caption = "Banka Adı";
+            gridView1.Columns["Iban"].Caption = "IBAN";
             gridView1.Columns["AccountNumber"].Caption = "Hesap Numarası";
             gridView1.Columns["AccountType"].Caption = "Hesap Türü";
             gridView1.Columns["Balance"].Caption = "Bakiye";
-            gridView1.Columns["Description"].Caption = "Açıklama";
-            gridView1.Columns["IsActive"].Caption = "Durum";
+            gridView1.Columns["Description"].Caption = "Açıklama";            
         }
         private void btnKaydet_Click(object sender, EventArgs e)
         {

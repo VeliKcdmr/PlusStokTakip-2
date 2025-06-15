@@ -1,4 +1,4 @@
-﻿namespace PlusStokTakip.PresentationLayer.User.Modules.Dashboard
+﻿namespace PlusStokTakip.PresentationLayer.Admin.Modules.Dashboard
 {
     partial class FrmDashboard
     {
@@ -341,7 +341,7 @@
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Location = new System.Drawing.Point(5, 7);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(528, 103);
+            this.panel2.Size = new System.Drawing.Size(414, 103);
             this.panel2.TabIndex = 12;
             // 
             // panel4
@@ -355,7 +355,7 @@
             this.panel4.Controls.Add(this.pictureBox3);
             this.panel4.Location = new System.Drawing.Point(209, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(316, 97);
+            this.panel4.Size = new System.Drawing.Size(200, 97);
             this.panel4.TabIndex = 2;
             // 
             // labelControl5
@@ -470,9 +470,9 @@
             this.panel20.Controls.Add(this.labelControl7);
             this.panel20.Controls.Add(this.lblEuro);
             this.panel20.Controls.Add(this.lblDolar);
-            this.panel20.Location = new System.Drawing.Point(539, 7);
+            this.panel20.Location = new System.Drawing.Point(425, 7);
             this.panel20.Name = "panel20";
-            this.panel20.Size = new System.Drawing.Size(300, 103);
+            this.panel20.Size = new System.Drawing.Size(414, 103);
             this.panel20.TabIndex = 11;
             // 
             // pictureBox2

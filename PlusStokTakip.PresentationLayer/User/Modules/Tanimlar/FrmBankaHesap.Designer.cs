@@ -197,7 +197,7 @@
             this.groupControl2.Location = new System.Drawing.Point(2, 222);
             this.groupControl2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(348, 116);
+            this.groupControl2.Size = new System.Drawing.Size(348, 132);
             this.groupControl2.TabIndex = 0;
             // 
             // panelControl3
@@ -208,7 +208,7 @@
             this.panelControl3.Location = new System.Drawing.Point(2, 2);
             this.panelControl3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(352, 340);
+            this.panelControl3.Size = new System.Drawing.Size(352, 356);
             this.panelControl3.TabIndex = 2;
             // 
             // groupControl1
@@ -318,7 +318,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1107, 344);
+            this.panelControl1.Size = new System.Drawing.Size(969, 360);
             this.panelControl1.TabIndex = 8;
             // 
             // panelControl2
@@ -328,7 +328,7 @@
             this.panelControl2.Location = new System.Drawing.Point(354, 2);
             this.panelControl2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(751, 340);
+            this.panelControl2.Size = new System.Drawing.Size(613, 356);
             this.panelControl2.TabIndex = 1;
             // 
             // gridControl1
@@ -344,7 +344,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(747, 336);
+            this.gridControl1.Size = new System.Drawing.Size(609, 352);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.UseEmbeddedNavigator = true;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -383,7 +383,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1107, 344);
+            this.ClientSize = new System.Drawing.Size(969, 360);
             this.Controls.Add(this.panelControl1);
             this.Name = "FrmBankaHesap";
             this.Text = "Banka Hesap Tanımlama";

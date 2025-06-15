@@ -41,16 +41,14 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
                 m.ModelID,
                 m.ModelName,
                 m.ModelYear,
-                BrandName = m.Brands?.BrandName ?? "Marka Yok",
-                IsActive = m.IsActive ? "Aktif" : "Pasif"
+                BrandName = m.Brands?.BrandName ?? "Bulunamadı"                
             }).ToList();
-
             gridControl1.DataSource = modelsList;
-            gridView1.Columns["ModelID"].Caption = "Model ID";
+            gridView1.Columns["ModelID"].Visible=false;
             gridView1.Columns["ModelName"].Caption = "Model Adı";
             gridView1.Columns["ModelYear"].Caption = "Model Yılı";
             gridView1.Columns["BrandName"].Caption = "Marka";
-            gridView1.Columns["IsActive"].Caption = "Durum";
+            
 
         }
 
