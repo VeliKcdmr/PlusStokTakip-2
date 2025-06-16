@@ -34,12 +34,13 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
 
         private void BrandsLoad()
         {
+            var categories = _categoriesManager.TGetAll().Where(c => c.IsActive); // Sadece aktif kategorileri getir
             var brandsList = _brandsManager.TGetAll().Where(b => b.IsActive) // Sadece aktif markaları getir
                 .Select(b => new
                 {
                     b.BrandID,
                     b.BrandName,
-                    CategoryName = b.Categories != null ? b.Categories.CategoryName : "Kategori Yok"
+                    categories.FirstOrDefault(c => c.CategoryID == b.CategoryID)?.CategoryName
                 }).ToList();
 
             gridControl1.DataSource = brandsList;

@@ -36,12 +36,13 @@ namespace PlusStokTakip.PresentationLayer.User.Modules.Tanimlar
         // Modelleri yükler
         private void modelsLoad()
         {
+            var brandList = _brandManager.TGetAll().Where(b => b.IsActive == true);
             var modelsList = _modelsManager.TGetAll().Where(m => m.IsActive == true).Select(m => new
             {
                 m.ModelID,
                 m.ModelName,
                 m.ModelYear,
-                BrandName = m.Brands?.BrandName ?? "Bulunamadı"                
+                BrandName =brandList.FirstOrDefault(b => b.BrandID == m.BrandID)?.BrandName ?? "Marka Yok"       
             }).ToList();
             gridControl1.DataSource = modelsList;
             gridView1.Columns["ModelID"].Visible=false;
